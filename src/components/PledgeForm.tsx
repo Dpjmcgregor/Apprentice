@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 
 interface PledgeFormProps {
   pledgedCount?: number;
 }
 
-const pledgeSchema = z.object({
+const detailsSchema = z.object({
   firstName: z
     .string()
     .trim()
@@ -22,42 +23,106 @@ const pledgeSchema = z.object({
     .trim()
     .email("Enter a valid work email")
     .max(255, "Email must be under 255 characters"),
+  role: z.string().trim().max(120, "Role must be under 120 characters").optional(),
 });
+
+const COUNT_OPTIONS = ["1 apprentice", "2–3 apprentices", "4+ apprentices"];
+const AREA_OPTIONS = [
+  "Creative",
+  "Media",
+  "Marketing",
+  "Tech",
+  "Operations",
+  "Other",
+];
+const TIMEFRAME_OPTIONS = [
+  "Next 3 months",
+  "Next 6 months",
+  "Within 12 months",
+];
+
+const TOTAL_STEPS = 3;
+
+const inputClass =
+  "w-full bg-input border-none px-6 py-5 rounded-2xl focus:ring-2 focus:ring-primary outline-none uppercase tracking-widest text-foreground placeholder:text-muted-foreground/60";
+const labelClass =
+  "text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-bold ml-2 block";
+
+interface PledgeData {
+  firstName: string;
+  company: string;
+  email: string;
+  role: string;
+  count: string;
+  area: string;
+  timeframe: string;
+  connect: boolean;
+}
+
+const emptyData: PledgeData = {
+  firstName: "",
+  company: "",
+  email: "",
+  role: "",
+  count: "",
+  area: "",
+  timeframe: "",
+  connect: true,
+};
 
 const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
   const navigate = useNavigate();
+  const [step, setStep] = useState(1);
+  const [data, setData] = useState<PledgeData>(emptyData);
+  const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const parsed = pledgeSchema.safeParse({
-      firstName: form.get("firstName"),
-      company: form.get("company"),
-      email: form.get("email"),
-    });
+  const update = (patch: Partial<PledgeData>) =>
+    setData((prev) => ({ ...prev, ...patch }));
 
-    if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? "Please check your details");
+  const goBack = () => {
+    setError(null);
+    setStep((s) => Math.max(1, s - 1));
+  };
+
+  const handleNext = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (step === 1) {
+      const parsed = detailsSchema.safeParse(data);
+      if (!parsed.success) {
+        setError(parsed.error.issues[0]?.message ?? "Please check your details");
+        return;
+      }
+      setStep(2);
       return;
     }
 
-    setError(null);
+    if (step === 2) {
+      if (!data.count || !data.area || !data.timeframe) {
+        setError("Pick an option in each row to continue");
+        return;
+      }
+      setStep(3);
+      return;
+    }
+
+    // Final step — sign the pledge.
+    if (!agreed) {
+      setError("Tick the box to make your commitment official");
+      return;
+    }
+
     setSubmitting(true);
 
-    // Open the underlying Google Form submission in a new tab for now,
-    // then navigate to /thank-you so conversion tracking can fire.
-    window.open(
-      "https://docs.google.com/forms/d/e/1FAIpQLSe4jQRTMPqd85m7yNLrFkh3j9VojPwOcyDhX4_ZzzAXUAkyuQ/viewform",
-      "_blank",
-      "noopener,noreferrer"
-    );
-
+    // In production this is where the pledge is sent to the CRM / pledge wall.
+    // For now we move straight into the branded thank-you journey.
     navigate("/thank-you", {
       state: {
-        firstName: parsed.data.firstName,
-        company: parsed.data.company,
+        firstName: data.firstName,
+        company: data.company,
         pledgeNumber: pledgedCount + 1,
       },
     });
@@ -86,79 +151,234 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
             )}
           </div>
 
-          <p className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-6">
-            The Commitment
-          </p>
+          {/* Step header + progress */}
+          <div className="flex items-center justify-between mb-6">
+            <p className="text-primary font-bold tracking-[0.3em] uppercase text-xs">
+              The Commitment
+            </p>
+            <p className="text-muted-foreground font-bold tracking-[0.3em] uppercase text-[10px]">
+              Step {step} / {TOTAL_STEPS}
+            </p>
+          </div>
+          <div className="flex gap-2 mb-10">
+            {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 flex-1 rounded-full transition-colors ${
+                  i < step ? "bg-primary" : "bg-border"
+                }`}
+              />
+            ))}
+          </div>
 
-          <h2 className="font-display uppercase text-4xl md:text-6xl lg:text-7xl leading-[0.9] mb-10">
-            I commit to hiring <br />
-            at least <span className="text-primary">one apprentice</span> <br />
-            in the next 12 months.
-          </h2>
+          <form onSubmit={handleNext} noValidate>
+            {/* STEP 1 — about you */}
+            {step === 1 && (
+              <div className="animate-fade-up">
+                <h2 className="font-display uppercase text-4xl md:text-6xl leading-[0.9] mb-10">
+                  First, <span className="text-primary">about you.</span>
+                </h2>
 
-          <form
-            onSubmit={handleSubmit}
-            className="grid grid-cols-1 md:grid-cols-2 gap-5"
-            noValidate
-          >
-            <div className="space-y-2">
-              <label htmlFor="firstName" className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-bold ml-2 block">
-                First Name
-              </label>
-              <input
-                id="firstName"
-                name="firstName"
-                required
-                type="text"
-                maxLength={80}
-                placeholder="ALEX"
-                className="w-full bg-input border-none px-6 py-5 rounded-2xl focus:ring-2 focus:ring-primary outline-none uppercase tracking-widest text-foreground placeholder:text-muted-foreground/60"
-              />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="company" className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-bold ml-2 block">
-                Company Name
-              </label>
-              <input
-                id="company"
-                name="company"
-                required
-                type="text"
-                maxLength={120}
-                placeholder="AVENUE CREATIVE"
-                className="w-full bg-input border-none px-6 py-5 rounded-2xl focus:ring-2 focus:ring-primary outline-none uppercase tracking-widest text-foreground placeholder:text-muted-foreground/60"
-              />
-            </div>
-            <div className="space-y-2 md:col-span-2">
-              <label htmlFor="email" className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-bold ml-2 block">
-                Email Address
-              </label>
-              <input
-                id="email"
-                name="email"
-                required
-                type="email"
-                maxLength={255}
-                placeholder="HELLO@PARTNER.CO.UK"
-                className="w-full bg-input border-none px-6 py-5 rounded-2xl focus:ring-2 focus:ring-primary outline-none uppercase tracking-widest text-foreground placeholder:text-muted-foreground/60"
-              />
-            </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <label htmlFor="firstName" className={labelClass}>
+                      First Name
+                    </label>
+                    <input
+                      id="firstName"
+                      type="text"
+                      maxLength={80}
+                      placeholder="ALEX"
+                      value={data.firstName}
+                      onChange={(e) => update({ firstName: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="company" className={labelClass}>
+                      Company Name
+                    </label>
+                    <input
+                      id="company"
+                      type="text"
+                      maxLength={120}
+                      placeholder="AVENUE CREATIVE"
+                      value={data.company}
+                      onChange={(e) => update({ company: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="role" className={labelClass}>
+                      Your Role <span className="opacity-50">(optional)</span>
+                    </label>
+                    <input
+                      id="role"
+                      type="text"
+                      maxLength={120}
+                      placeholder="FOUNDER / CEO"
+                      value={data.role}
+                      onChange={(e) => update({ role: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="email" className={labelClass}>
+                      Work Email
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      maxLength={255}
+                      placeholder="HELLO@PARTNER.CO.UK"
+                      value={data.email}
+                      onChange={(e) => update({ email: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 2 — the commitment shape */}
+            {step === 2 && (
+              <div className="animate-fade-up space-y-10">
+                <h2 className="font-display uppercase text-4xl md:text-6xl leading-[0.9]">
+                  Your <span className="text-primary">commitment.</span>
+                </h2>
+
+                <OptionRow
+                  label="How many apprentices?"
+                  options={COUNT_OPTIONS}
+                  value={data.count}
+                  onSelect={(count) => update({ count })}
+                />
+                <OptionRow
+                  label="Which area of your business?"
+                  options={AREA_OPTIONS}
+                  value={data.area}
+                  onSelect={(area) => update({ area })}
+                />
+                <OptionRow
+                  label="When will you hire?"
+                  options={TIMEFRAME_OPTIONS}
+                  value={data.timeframe}
+                  onSelect={(timeframe) => update({ timeframe })}
+                />
+              </div>
+            )}
+
+            {/* STEP 3 — confirm & sign */}
+            {step === 3 && (
+              <div className="animate-fade-up">
+                <h2 className="font-display uppercase text-4xl md:text-6xl leading-[0.9] mb-10">
+                  Make it <span className="text-primary">official.</span>
+                </h2>
+
+                <div className="bg-secondary rounded-3xl p-8 md:p-10 mb-8">
+                  <p className="font-display uppercase text-2xl md:text-3xl leading-[1.05]">
+                    I, {data.firstName || "—"} of{" "}
+                    <span className="text-primary">{data.company || "—"}</span>,
+                    commit to hiring at least {data.count || "one apprentice"} in
+                    the {data.timeframe?.toLowerCase() || "next 12 months"}.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {[data.role, data.area && `${data.area} team`, data.email]
+                      .filter(Boolean)
+                      .map((chip) => (
+                        <span
+                          key={chip as string}
+                          className="text-[10px] uppercase tracking-[0.2em] font-bold bg-background/60 text-muted-foreground px-4 py-2 rounded-full"
+                        >
+                          {chip}
+                        </span>
+                      ))}
+                  </div>
+                </div>
+
+                <label className="flex items-start gap-4 cursor-pointer mb-5 group">
+                  <span
+                    className={`mt-0.5 w-7 h-7 shrink-0 rounded-lg border-2 flex items-center justify-center transition-colors ${
+                      agreed
+                        ? "bg-primary border-primary text-primary-foreground"
+                        : "border-border group-hover:border-primary"
+                    }`}
+                  >
+                    {agreed && <Check className="w-4 h-4" strokeWidth={3} />}
+                  </span>
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={agreed}
+                    onChange={(e) => setAgreed(e.target.checked)}
+                  />
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    I&rsquo;m making this commitment on behalf of my business, and I&rsquo;m
+                    happy for my name and company to appear on the public pledge wall.
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-4 cursor-pointer group">
+                  <span
+                    className={`mt-0.5 w-7 h-7 shrink-0 rounded-lg border-2 flex items-center justify-center transition-colors ${
+                      data.connect
+                        ? "bg-primary border-primary text-primary-foreground"
+                        : "border-border group-hover:border-primary"
+                    }`}
+                  >
+                    {data.connect && <Check className="w-4 h-4" strokeWidth={3} />}
+                  </span>
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={data.connect}
+                    onChange={(e) => update({ connect: e.target.checked })}
+                  />
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    Connect me with apprentice-ready candidates from Another Avenue.
+                  </span>
+                </label>
+              </div>
+            )}
 
             {error && (
-              <p className="md:col-span-2 text-sm text-destructive uppercase tracking-wider font-bold" role="alert">
+              <p
+                className="text-sm text-destructive uppercase tracking-wider font-bold mt-8"
+                role="alert"
+              >
                 {error}
               </p>
             )}
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className="md:col-span-2 w-full bg-primary text-primary-foreground py-6 rounded-full font-bold uppercase tracking-[0.2em] text-base md:text-xl hover:bg-white transition-colors mt-4 disabled:opacity-60"
-            >
-              I Take the Pledge
-            </button>
+            {/* Navigation */}
+            <div className="flex items-center gap-4 mt-10">
+              {step > 1 && (
+                <button
+                  type="button"
+                  onClick={goBack}
+                  className="flex items-center justify-center gap-2 px-7 py-5 rounded-full border border-border text-muted-foreground font-bold uppercase tracking-[0.2em] text-xs hover:text-foreground hover:border-foreground transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Back
+                </button>
+              )}
+              <button
+                type="submit"
+                disabled={submitting}
+                className="flex-1 flex items-center justify-center gap-3 bg-primary text-primary-foreground py-5 md:py-6 rounded-full font-bold uppercase tracking-[0.2em] text-base md:text-xl hover:bg-white transition-colors disabled:opacity-60"
+              >
+                {step < TOTAL_STEPS ? (
+                  <>
+                    Continue
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                ) : (
+                  "I Take the Pledge"
+                )}
+              </button>
+            </div>
 
-            <p className="md:col-span-2 text-center text-muted-foreground text-xs uppercase tracking-[0.2em] mt-2">
+            <p className="text-center text-muted-foreground text-xs uppercase tracking-[0.2em] mt-6">
               No spam. No obligation beyond your commitment.
             </p>
           </form>
@@ -167,5 +387,38 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
     </section>
   );
 };
+
+interface OptionRowProps {
+  label: string;
+  options: string[];
+  value: string;
+  onSelect: (value: string) => void;
+}
+
+const OptionRow = ({ label, options, value, onSelect }: OptionRowProps) => (
+  <div>
+    <p className={`${labelClass} mb-4`}>{label}</p>
+    <div className="flex flex-wrap gap-3" role="group" aria-label={label}>
+      {options.map((option) => {
+        const active = value === option;
+        return (
+          <button
+            key={option}
+            type="button"
+            aria-pressed={active}
+            onClick={() => onSelect(option)}
+            className={`px-6 py-3 rounded-full font-bold uppercase tracking-[0.15em] text-xs transition-colors ${
+              active
+                ? "bg-primary text-primary-foreground"
+                : "bg-input text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {option}
+          </button>
+        );
+      })}
+    </div>
+  </div>
+);
 
 export default PledgeForm;
