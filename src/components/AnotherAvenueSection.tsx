@@ -6,18 +6,18 @@ const AnotherAvenueSection = () => {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-16">
         <div className="flex-1">
           <p className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-6">
-            The Sister Brand
+            The Pipeline
           </p>
           <h2 className="font-display uppercase text-5xl md:text-7xl lg:text-8xl mb-8 leading-[0.9]">
-            Built by <br />
-            <span className="text-primary">Another Avenue.</span>
+            We train them. <br />
+            <span className="text-primary">You hire them.</span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed max-w-xl">
-            Another Avenue trains apprentice-ready candidates. The Apprentice Pledge places them.
-            A natural pipeline from classroom to career.
+            Another Avenue produces apprentice-ready candidates — trained, motivated, and
+            ready for work. The Apprentice Pledge places them.
           </p>
           <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed max-w-xl">
-            We train the talent. You hire it.
+            A natural pipeline from classroom to career. We do the training. You open the door.
           </p>
           <a
             href="https://another-avenue.co.uk/employers"
@@ -25,7 +25,7 @@ const AnotherAvenueSection = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-4 text-primary font-bold uppercase tracking-[0.2em] text-sm md:text-base group"
           >
-            Find apprentice-ready candidates
+            Find candidates at another-avenue.co.uk
             <span className="w-12 h-12 rounded-full border border-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all">
               <ArrowRight className="w-5 h-5" />
             </span>

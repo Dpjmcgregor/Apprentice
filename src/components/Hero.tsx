@@ -5,10 +5,6 @@ interface HeroProps {
 }
 
 const Hero = ({ pledgedCount = 42 }: HeroProps) => {
-  const scrollToForm = () => {
-    document.getElementById("pledge-form")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -39,15 +35,22 @@ const Hero = ({ pledgedCount = 42 }: HeroProps) => {
         </p>
 
         <div className="animate-fade-up-delay-2 flex flex-col items-center gap-5">
-          <button
-            onClick={scrollToForm}
+          <a
+            href="#pledge-form"
             className="inline-block bg-primary text-primary-foreground px-12 py-5 rounded-full font-bold uppercase tracking-[0.15em] text-sm md:text-base hover:bg-white transition-all transform hover:scale-105"
           >
-            Take the Pledge
-          </button>
-          <p className="text-muted-foreground text-xs md:text-sm uppercase tracking-[0.25em] font-bold">
-            Join <span className="text-primary">{pledgedCount}</span> businesses already committed
-          </p>
+            I&rsquo;ll Take the Pledge
+          </a>
+          {pledgedCount < 100 ? (
+            <p className="text-muted-foreground text-xs md:text-sm uppercase tracking-[0.25em] font-bold">
+              Be one of the <span className="text-primary">first 100</span> — join{" "}
+              <span className="text-primary">{pledgedCount}</span> already committed
+            </p>
+          ) : (
+            <p className="text-muted-foreground text-xs md:text-sm uppercase tracking-[0.25em] font-bold">
+              Join <span className="text-primary">{pledgedCount}</span> businesses already committed
+            </p>
+          )}
         </div>
       </div>
     </section>

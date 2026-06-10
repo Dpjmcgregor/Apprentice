@@ -58,6 +58,7 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
       state: {
         firstName: parsed.data.firstName,
         company: parsed.data.company,
+        pledgeNumber: pledgedCount + 1,
       },
     });
   };

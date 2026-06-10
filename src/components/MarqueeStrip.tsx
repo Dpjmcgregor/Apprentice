@@ -1,14 +1,19 @@
 const pledgers = [
   "NewGen",
+  "Sarah, Founder — Manchester",
   "Nonsensical",
+  "James, MD — Leeds",
   "Fearless Adventures",
+  "Priya, CEO — London",
   "Foudys",
+  "Tom, Founder — Bristol",
   "Array",
+  "Aisha, Director — Birmingham",
 ];
 
 const MarqueeStrip = () => {
   return (
-    <section aria-label="Businesses already pledged" className="bg-primary text-primary-foreground border-y-4 border-background py-8 md:py-10 overflow-hidden">
+    <section aria-label="Businesses and people who have already pledged" className="bg-primary text-primary-foreground border-y-4 border-background py-8 md:py-10 overflow-hidden">
       <div className="flex whitespace-nowrap animate-marquee gap-12 md:gap-16">
         {[...pledgers, ...pledgers].map((name, i) => (
           <span
