@@ -1,0 +1,11 @@
+# The Apprentice Pledge
+
+> A UK movement of founders, leaders, and employers committing to hire, train, and develop at least one apprentice.
+
+The Apprentice Pledge invites employers to publicly commit to opening doors for the next generation. Signers join a growing community building the UK's future talent pipeline, with early access to upcoming apprenticeship pathways in creative, media, and marketing sectors, and an official Apprentice Pledge badge to share.
+
+## Pages
+
+- [Home](/): Learn why hiring an apprentice matters and take the pledge.
+- [Blog](/blog): Insights and data on apprenticeships and UK hiring.
+- [UK Unemployment Data](/unemployment): Latest ONS unemployment figures, visualised.
