@@ -56,3 +56,34 @@ tailwind.config.ts   # Theme, fonts, animations
 | `/blog/:slug`    | Individual blog post                   |
 | `/unemployment`  | UK youth unemployment data, visualised |
 | `/thank-you`     | Post-pledge confirmation               |
+
+## Environment variables
+
+| Variable                | Required | Description                                                                 |
+| ----------------------- | -------- | --------------------------------------------------------------------------- |
+| `VITE_PLEDGE_ENDPOINT`  | Yes\*    | Google Apps Script `/exec` URL that records pledges. See `google-apps-script/README.md`. |
+
+\*Without it, the form still works but submissions aren't recorded (the user
+still reaches the thank-you page). Locally, copy `.env.example` to `.env.local`.
+
+## Deployment (Vercel)
+
+The repo is configured for [Vercel](https://vercel.com). `vercel.json` adds the
+SPA rewrite so client-side routes (`/blog`, `/unemployment`, …) resolve on a
+direct load or refresh. Vercel auto-detects the Vite framework (build:
+`npm run build`, output: `dist`).
+
+One-time setup:
+
+1. At [vercel.com](https://vercel.com/new), **Add New → Project** and import
+   the `Apprentice` GitHub repo.
+2. Leave the framework preset as **Vite** (build and output are detected).
+3. Under **Settings → Environment Variables**, add `VITE_PLEDGE_ENDPOINT` with
+   your Apps Script `/exec` URL, for **Production** (and Preview, if you want
+   pledges from preview builds to record too).
+4. Set the **Production Branch** to the branch you want live (e.g. `main`), then
+   deploy.
+
+Every push to the production branch redeploys; other branches and PRs get
+preview URLs automatically.
+
