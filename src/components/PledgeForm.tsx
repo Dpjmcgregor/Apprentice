@@ -2,43 +2,60 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { submitPledge } from "@/lib/pledge";
 
 interface PledgeFormProps {
   pledgedCount?: number;
 }
 
 const detailsSchema = z.object({
-  firstName: z
+  fullName: z
     .string()
     .trim()
-    .min(1, "First name is required")
-    .max(80, "First name must be under 80 characters"),
+    .min(1, "Full name is required")
+    .max(120, "Full name must be under 120 characters"),
   company: z
     .string()
     .trim()
     .min(1, "Company name is required")
     .max(120, "Company name must be under 120 characters"),
+  jobTitle: z
+    .string()
+    .trim()
+    .min(1, "Job title is required")
+    .max(120, "Job title must be under 120 characters"),
+  location: z
+    .string()
+    .trim()
+    .min(1, "Location is required")
+    .max(120, "Location must be under 120 characters"),
   email: z
     .string()
     .trim()
     .email("Enter a valid work email")
     .max(255, "Email must be under 255 characters"),
-  role: z.string().trim().max(120, "Role must be under 120 characters").optional(),
 });
 
-const COUNT_OPTIONS = ["1 apprentice", "2–3 apprentices", "4+ apprentices"];
-const AREA_OPTIONS = [
-  "Creative",
-  "Media",
-  "Marketing",
-  "Tech",
-  "Operations",
+const ALREADY_HIRE_OPTIONS = ["Yes", "No"];
+const INTEND_OPTIONS = ["1", "2", "3–5", "6+"];
+const LEVY_OPTIONS = ["Yes", "No", "Not sure"];
+const SECTOR_OPTIONS = [
+  "Sales, marketing and procurement",
+  "Agriculture, environmental and animal care",
+  "Digital",
+  "Business and administration",
+  "Care services",
+  "Catering and hospitality",
+  "Construction and the built environment",
+  "Creative and design",
+  "Education and early years",
+  "Engineering and manufacturing",
+  "Hair and beauty",
+  "Health and science",
+  "Legal, finance and accounting",
+  "Protective services",
+  "Transport and logistics",
   "Other",
-];
-const TIMEFRAME_OPTIONS = [
-  "Next 3 months",
-  "Next 6 months",
-  "Within 12 months",
 ];
 
 const TOTAL_STEPS = 3;
@@ -49,24 +66,28 @@ const labelClass =
   "text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-bold ml-2 block";
 
 interface PledgeData {
-  firstName: string;
+  fullName: string;
   company: string;
+  jobTitle: string;
+  location: string;
   email: string;
-  role: string;
-  count: string;
-  area: string;
-  timeframe: string;
+  alreadyHire: string;
+  intendCount: string;
+  sector: string;
+  levyPayer: string;
   connect: boolean;
 }
 
 const emptyData: PledgeData = {
-  firstName: "",
+  fullName: "",
   company: "",
+  jobTitle: "",
+  location: "",
   email: "",
-  role: "",
-  count: "",
-  area: "",
-  timeframe: "",
+  alreadyHire: "",
+  intendCount: "",
+  sector: "",
+  levyPayer: "",
   connect: true,
 };
 
@@ -86,7 +107,7 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
     setStep((s) => Math.max(1, s - 1));
   };
 
-  const handleNext = (e: React.FormEvent) => {
+  const handleNext = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -101,27 +122,41 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
     }
 
     if (step === 2) {
-      if (!data.count || !data.area || !data.timeframe) {
-        setError("Pick an option in each row to continue");
-        return;
-      }
+      if (!data.alreadyHire) return setError("Let us know if you already hire an apprentice");
+      if (!data.intendCount) return setError("Pick how many apprentices you plan to hire");
+      if (!data.sector) return setError("Choose the sector you might hire in");
+      if (!data.levyPayer) return setError("Tell us your apprenticeship levy status");
       setStep(3);
       return;
     }
 
     // Final step — sign the pledge.
     if (!agreed) {
-      setError("Tick the box to make your commitment official");
+      setError("Tick the box to make your pledge official");
       return;
     }
 
     setSubmitting(true);
 
-    // In production this is where the pledge is sent to the CRM / pledge wall.
-    // For now we move straight into the branded thank-you journey.
+    await submitPledge({
+      fullName: data.fullName,
+      company: data.company,
+      jobTitle: data.jobTitle,
+      location: data.location,
+      email: data.email,
+      pledge: "Yes, I'm making the pledge",
+      alreadyHire: data.alreadyHire,
+      intendCount: data.intendCount,
+      sector: data.sector,
+      levyPayer: data.levyPayer,
+      connect: data.connect ? "Yes" : "No",
+    });
+
+    const firstName = data.fullName.trim().split(/\s+/)[0];
+
     navigate("/thank-you", {
       state: {
-        firstName: data.firstName,
+        firstName,
         company: data.company,
         pledgeNumber: pledgedCount + 1,
       },
@@ -154,10 +189,10 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
           {/* Step header + progress */}
           <div className="flex items-center justify-between mb-6">
             <p className="text-primary font-bold tracking-[0.3em] uppercase text-xs">
-              The Commitment
+              The 2026 Pledge
             </p>
             <p className="text-muted-foreground font-bold tracking-[0.3em] uppercase text-[10px]">
-              Step {step} / {TOTAL_STEPS}
+              Step {step} / {TOTAL_STEPS} · under 60 seconds
             </p>
           </div>
           <div className="flex gap-2 mb-10">
@@ -181,16 +216,16 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-2">
-                    <label htmlFor="firstName" className={labelClass}>
-                      First Name
+                    <label htmlFor="fullName" className={labelClass}>
+                      Full Name
                     </label>
                     <input
-                      id="firstName"
+                      id="fullName"
                       type="text"
-                      maxLength={80}
-                      placeholder="ALEX"
-                      value={data.firstName}
-                      onChange={(e) => update({ firstName: e.target.value })}
+                      maxLength={120}
+                      placeholder="ALEX MORGAN"
+                      value={data.fullName}
+                      onChange={(e) => update({ fullName: e.target.value })}
                       className={inputClass}
                     />
                   </div>
@@ -209,20 +244,34 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="role" className={labelClass}>
-                      Your Role <span className="opacity-50">(optional)</span>
+                    <label htmlFor="jobTitle" className={labelClass}>
+                      Job Title
                     </label>
                     <input
-                      id="role"
+                      id="jobTitle"
                       type="text"
                       maxLength={120}
                       placeholder="FOUNDER / CEO"
-                      value={data.role}
-                      onChange={(e) => update({ role: e.target.value })}
+                      value={data.jobTitle}
+                      onChange={(e) => update({ jobTitle: e.target.value })}
                       className={inputClass}
                     />
                   </div>
                   <div className="space-y-2">
+                    <label htmlFor="location" className={labelClass}>
+                      Location
+                    </label>
+                    <input
+                      id="location"
+                      type="text"
+                      maxLength={120}
+                      placeholder="MANCHESTER, UK"
+                      value={data.location}
+                      onChange={(e) => update({ location: e.target.value })}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="space-y-2 md:col-span-2">
                     <label htmlFor="email" className={labelClass}>
                       Work Email
                     </label>
@@ -244,26 +293,33 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
             {step === 2 && (
               <div className="animate-fade-up space-y-10">
                 <h2 className="font-display uppercase text-4xl md:text-6xl leading-[0.9]">
-                  Your <span className="text-primary">commitment.</span>
+                  Your 2026 <span className="text-primary">hiring.</span>
                 </h2>
 
                 <OptionRow
-                  label="How many apprentices?"
-                  options={COUNT_OPTIONS}
-                  value={data.count}
-                  onSelect={(count) => update({ count })}
+                  label="Do you already hire an apprentice?"
+                  options={ALREADY_HIRE_OPTIONS}
+                  value={data.alreadyHire}
+                  onSelect={(alreadyHire) => update({ alreadyHire })}
                 />
                 <OptionRow
-                  label="Which area of your business?"
-                  options={AREA_OPTIONS}
-                  value={data.area}
-                  onSelect={(area) => update({ area })}
+                  label="How many apprentices will you hire in 2026?"
+                  options={INTEND_OPTIONS}
+                  value={data.intendCount}
+                  onSelect={(intendCount) => update({ intendCount })}
                 />
                 <OptionRow
-                  label="When will you hire?"
-                  options={TIMEFRAME_OPTIONS}
-                  value={data.timeframe}
-                  onSelect={(timeframe) => update({ timeframe })}
+                  label="Which sector might you hire in?"
+                  options={SECTOR_OPTIONS}
+                  value={data.sector}
+                  onSelect={(sector) => update({ sector })}
+                />
+                <OptionRow
+                  label="Are you an Apprenticeship Levy payer?"
+                  options={LEVY_OPTIONS}
+                  value={data.levyPayer}
+                  onSelect={(levyPayer) => update({ levyPayer })}
+                  hint="This helps us tailor the funding guidance we send. Unsure? Pick “Not sure”."
                 />
               </div>
             )}
@@ -277,13 +333,17 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
 
                 <div className="bg-secondary rounded-3xl p-8 md:p-10 mb-8">
                   <p className="font-display uppercase text-2xl md:text-3xl leading-[1.05]">
-                    I, {data.firstName || "—"} of{" "}
+                    I, {data.fullName || "—"} of{" "}
                     <span className="text-primary">{data.company || "—"}</span>,
-                    commit to hiring at least {data.count || "one apprentice"} in
-                    the {data.timeframe?.toLowerCase() || "next 12 months"}.
+                    pledge to hire at least one apprentice in 2026.
                   </p>
                   <div className="mt-6 flex flex-wrap gap-2">
-                    {[data.role, data.area && `${data.area} team`, data.email]
+                    {[
+                      data.jobTitle,
+                      data.location,
+                      data.sector,
+                      data.intendCount && `${data.intendCount} in 2026`,
+                    ]
                       .filter(Boolean)
                       .map((chip) => (
                         <span
@@ -313,8 +373,11 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
                     onChange={(e) => setAgreed(e.target.checked)}
                   />
                   <span className="text-sm text-muted-foreground leading-relaxed">
-                    I&rsquo;m making this commitment on behalf of my business, and I&rsquo;m
-                    happy for my name and company to appear on the public pledge wall.
+                    <span className="text-foreground font-bold">
+                      Yes, I&rsquo;m making the pledge.
+                    </span>{" "}
+                    I commit to hiring at least one apprentice in 2026, and I&rsquo;m happy
+                    for my name and company to appear on the public pledge wall.
                   </span>
                 </label>
 
@@ -372,6 +435,8 @@ const PledgeForm = ({ pledgedCount = 42 }: PledgeFormProps) => {
                     Continue
                     <ArrowRight className="w-5 h-5" />
                   </>
+                ) : submitting ? (
+                  "Signing…"
                 ) : (
                   "I Take the Pledge"
                 )}
@@ -393,12 +458,18 @@ interface OptionRowProps {
   options: string[];
   value: string;
   onSelect: (value: string) => void;
+  hint?: string;
 }
 
-const OptionRow = ({ label, options, value, onSelect }: OptionRowProps) => (
+const OptionRow = ({ label, options, value, onSelect, hint }: OptionRowProps) => (
   <div>
-    <p className={`${labelClass} mb-4`}>{label}</p>
-    <div className="flex flex-wrap gap-3" role="group" aria-label={label}>
+    <p className={`${labelClass} mb-1`}>{label}</p>
+    {hint && (
+      <p className="text-[11px] text-muted-foreground/70 ml-2 mb-4 normal-case tracking-normal">
+        {hint}
+      </p>
+    )}
+    <div className={`flex flex-wrap gap-3 ${hint ? "" : "mt-4"}`} role="group" aria-label={label}>
       {options.map((option) => {
         const active = value === option;
         return (
