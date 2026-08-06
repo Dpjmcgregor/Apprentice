@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,37 +6,49 @@
 
 @layer base {
   :root {
-    --background: 0 0% 7%;
-    --foreground: 0 0% 96%;
+    /* Light SaaS surface with a dark sidebar rendered via explicit classes. */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
 
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 96%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 73 96% 56%;
-    --primary-foreground: 0 0% 7%;
+    /* Brand primary — overridden at runtime from brand settings (see store). */
+    --primary: 255 82% 62%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 96%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 62%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 330 85% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 255 82% 96%;
+    --accent-foreground: 255 60% 40%;
 
     --pink: 330 85% 60%;
 
-    --destructive: 0 84% 60%;
+    --success: 152 60% 40%;
+    --warning: 38 92% 50%;
+
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 16%;
-    --ring: 73 96% 56%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 255 82% 62%;
 
-    --radius: 0.75rem;
+    --radius: 0.7rem;
+
+    /* Dark sidebar palette (fixed, independent of brand/theme). */
+    --sidebar: 222 47% 11%;
+    --sidebar-foreground: 214 20% 69%;
+    --sidebar-muted: 215 20% 45%;
+    --sidebar-accent: 222 40% 18%;
+    --sidebar-border: 222 30% 20%;
   }
 }
 
@@ -51,10 +63,20 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "ss01", "cv01";
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   ::selection {
     @apply bg-primary text-primary-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image: radial-gradient(
+      hsl(var(--foreground) / 0.06) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
   }
 }

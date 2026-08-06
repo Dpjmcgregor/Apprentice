@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
   const location = useLocation();
@@ -13,27 +14,30 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-6 bg-background">
+    <main className="flex min-h-screen items-center justify-center bg-background px-6">
       <Helmet>
-        <title>Page Not Found | The Apprentice Pledge</title>
+        <title>Page not found | Rejection Done Right</title>
         <meta name="robots" content="noindex" />
       </Helmet>
-      <div className="text-center max-w-xl">
-        <p className="font-display text-primary text-[clamp(5rem,20vw,12rem)] leading-none">
+      <div className="max-w-md text-center">
+        <p className="font-display text-7xl font-bold leading-none text-primary">
           404
         </p>
-        <h1 className="font-display uppercase text-3xl md:text-5xl mb-6 leading-none">
-          This page took <span className="text-primary">another avenue.</span>
+        <h1 className="mt-4 text-2xl font-bold text-foreground">
+          This page took another avenue
         </h1>
-        <p className="text-muted-foreground mb-10">
-          The page you were looking for doesn&rsquo;t exist — but the pledge still does.
+        <p className="mt-3 text-muted-foreground">
+          The page you were looking for doesn&rsquo;t exist. But every rejection
+          here gets a warm landing — let&rsquo;s get you back.
         </p>
-        <Link
-          to="/"
-          className="inline-block bg-primary text-primary-foreground px-10 py-4 rounded-full font-bold uppercase tracking-[0.2em] text-sm hover:bg-white transition-colors"
-        >
-          Back to the Pledge
-        </Link>
+        <div className="mt-8 flex items-center justify-center gap-3">
+          <Button asChild>
+            <Link to="/">Home</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link to="/app">Go to dashboard</Link>
+          </Button>
+        </div>
       </div>
     </main>
   );
