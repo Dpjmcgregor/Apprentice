@@ -16,6 +16,7 @@ import { STAGES, STAGE_LABELS, type Applicant, type Stage } from "@/lib/types";
 import { relativeTime } from "@/lib/format";
 import { PageHeader } from "@/components/app/PageHeader";
 import { StageBadge, StatusBadge } from "@/components/app/StageBadge";
+import { SourceBadge } from "@/components/app/SourceBadge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -141,7 +142,7 @@ export default function Applicants() {
     <div className="space-y-6">
       <PageHeader
         title="Applicants"
-        description="Your pipeline. Move candidates through stages, then turn every rejection into a reward."
+        description="Candidates synced from your connected ATS. When a candidate is rejected there, Cushion sends the reward automatically — or trigger it here for manual roles."
       />
 
       {/* Controls */}
@@ -246,7 +247,10 @@ export default function Applicants() {
                     <div className="text-xs text-muted-foreground">{a.email}</div>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
-                    {job?.title ?? "—"}
+                    <div className="text-foreground">{job?.title ?? "—"}</div>
+                    {job && (
+                      <SourceBadge source={job.source} className="mt-1" />
+                    )}
                   </TableCell>
                   <TableCell>
                     {isActive ? (

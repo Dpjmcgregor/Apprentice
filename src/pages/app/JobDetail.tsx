@@ -23,6 +23,7 @@ import { STAGE_LABELS } from "@/lib/types";
 import { PageHeader } from "@/components/app/PageHeader";
 import { MetricCard } from "@/components/app/MetricCard";
 import { StageBadge, StatusBadge } from "@/components/app/StageBadge";
+import { SourceBadge } from "@/components/app/SourceBadge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -88,6 +89,7 @@ export default function JobDetail() {
       />
 
       <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+        <SourceBadge source={job.source} withPrefix />
         <span className="flex items-center gap-1">
           <MapPin className="h-3.5 w-3.5" />
           {job.location || "Remote"}

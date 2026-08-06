@@ -1,6 +1,7 @@
 import type {
   AppData,
   Applicant,
+  Integration,
   Job,
   RejectionTemplate,
   Reward,
@@ -162,6 +163,8 @@ export const seedJobs: Job[] = [
       "Front-of-house barista for our flagship Shoreditch café. Great coffee, warmer welcomes.",
     status: "open",
     createdAt: daysAgo(72),
+    source: "greenhouse",
+    externalId: "gh-1001",
   },
   {
     id: "job-store-manager",
@@ -173,6 +176,8 @@ export const seedJobs: Job[] = [
       "Lead a 12-person team in our Manchester store. Own the customer experience end to end.",
     status: "open",
     createdAt: daysAgo(60),
+    source: "greenhouse",
+    externalId: "gh-1002",
   },
   {
     id: "job-social",
@@ -184,6 +189,8 @@ export const seedJobs: Job[] = [
       "Own our TikTok and Instagram presence. Turn customers into a community.",
     status: "open",
     createdAt: daysAgo(41),
+    source: "greenhouse",
+    externalId: "gh-1003",
   },
   {
     id: "job-warehouse",
@@ -195,6 +202,8 @@ export const seedJobs: Job[] = [
       "Pick, pack and dispatch orders that customers love receiving.",
     status: "open",
     createdAt: daysAgo(30),
+    source: "lever",
+    externalId: "lev-2001",
   },
   {
     id: "job-head-retail",
@@ -206,6 +215,29 @@ export const seedJobs: Job[] = [
       "Set the strategy for every store and every in-person moment with our customers.",
     status: "closed",
     createdAt: daysAgo(96),
+    source: "manual",
+  },
+];
+
+export const seedIntegrations: Integration[] = [
+  {
+    provider: "greenhouse",
+    status: "connected",
+    connectedAt: daysAgo(84),
+    lastSyncedAt: daysAgo(0.02),
+    rejectionWebhook: true,
+  },
+  {
+    provider: "lever",
+    status: "connected",
+    connectedAt: daysAgo(26),
+    lastSyncedAt: daysAgo(0.05),
+    rejectionWebhook: true,
+  },
+  {
+    provider: "workable",
+    status: "disconnected",
+    rejectionWebhook: false,
   },
 ];
 
@@ -289,6 +321,7 @@ export function buildSeed(): AppData {
       videoRejections: false,
       plan: "growth",
     },
+    integrations: seedIntegrations,
     jobs: seedJobs,
     applicants: buildApplicants(),
     rewards: seedRewards,

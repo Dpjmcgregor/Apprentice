@@ -18,6 +18,7 @@ import Dashboard from "./pages/app/Dashboard";
 import Jobs from "./pages/app/Jobs";
 import JobDetail from "./pages/app/JobDetail";
 import Applicants from "./pages/app/Applicants";
+import Integrations from "./pages/app/Integrations";
 import RejectionBuilder from "./pages/app/RejectionBuilder";
 import Rewards from "./pages/app/Rewards";
 import Reports from "./pages/app/Reports";
@@ -46,6 +47,7 @@ const App = () => (
                 <Route path="jobs" element={<Jobs />} />
                 <Route path="jobs/:jobId" element={<JobDetail />} />
                 <Route path="applicants" element={<Applicants />} />
+                <Route path="integrations" element={<Integrations />} />
                 <Route path="rejections" element={<RejectionBuilder />} />
                 <Route path="rewards" element={<Rewards />} />
                 <Route path="reports" element={<Reports />} />

@@ -3,6 +3,7 @@ import {
   LayoutDashboard,
   Briefcase,
   Users,
+  Plug,
   Wand2,
   Gift,
   BarChart3,
@@ -17,6 +18,7 @@ import { BrandLogo } from "./BrandLogo";
 
 const NAV = [
   { to: "/app", label: "Dashboard", icon: LayoutDashboard, end: true },
+  { to: "/app/integrations", label: "Integrations", icon: Plug },
   { to: "/app/jobs", label: "Jobs", icon: Briefcase },
   { to: "/app/applicants", label: "Applicants", icon: Users },
   { to: "/app/rejections", label: "Rejection flows", icon: Wand2 },

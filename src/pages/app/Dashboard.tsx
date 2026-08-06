@@ -68,7 +68,7 @@ export default function Dashboard() {
     <div className="space-y-8">
       <PageHeader
         title={`Welcome back — ${data.brand.name}`}
-        description="Every rejection is a warm audience. Here's how your unsuccessful applicants are becoming advocates and customers."
+        description="Synced live from your ATS. Here's how your rejected applicants are becoming advocates and customers."
         actions={
           <Button asChild>
             <Link to="/app/applicants">

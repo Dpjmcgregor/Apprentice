@@ -9,6 +9,13 @@ of them go on to become paying customers.
 Positioned as a **CRM and growth tool**, not an HR one. The metric that sells it:
 _what percentage of your rejected applicants became paying customers?_
 
+**v1 is a plugin to your existing ATS, not a replacement.** Cushion connects to
+Greenhouse, Lever or Workable, syncs your roles and candidates, and listens for
+rejection events — when a candidate is rejected in your ATS, Cushion
+automatically sends the on-brand rejection and reward. A lightweight standalone
+path (a Cushion-hosted job + application form) is available for roles that live
+outside an ATS.
+
 ## What's in this build (MVP)
 
 This is a fully interactive front-end MVP. It runs entirely in the browser and
@@ -18,9 +25,10 @@ seeded data.
 
 | Area | What you can do |
 | --- | --- |
+| **Integrations** | Connect Greenhouse / Lever / Workable, sync jobs & candidates, and toggle the rejection webhook that triggers advocacy sends automatically. The heart of the plugin model. |
 | **Dashboard** | Key advocacy metrics front and centre — applications, rejections, open & redemption rates, rejected-to-customer conversion, revenue influenced, plus trend, funnel and by-stage charts (Recharts). |
-| **Jobs** | Create roles and get a shareable public application link (no ATS required). |
-| **Applicants** | The pipeline. Move candidates through stages, then reject one-by-one or in bulk — each gets the reward matched to their stage. |
+| **Jobs** | Roles synced from your ATS (source-tagged), plus manual Cushion-hosted roles with a shareable application link for anything outside your ATS. |
+| **Applicants** | The synced pipeline. Move candidates through stages, then reject one-by-one or in bulk — each gets the reward matched to their stage. |
 | **Rejection flow builder** | Personalise the rejection by name/role, pick a tone, insert variables, attach a reward, and see a live mobile-responsive email preview. Segmented per stage reached. |
 | **Reward engine** | Manage discount / free-product / early-access rewards with per-reward redemption tracking. |
 | **Reports** | A monthly, printable brand report framed for marketing & finance. |
@@ -36,6 +44,7 @@ seeded data.
 | `/apply/:jobId` | Application form | Public, no login |
 | `/r/:token` | Rejection experience + reward redemption | Public, no login |
 | `/app` | Dashboard | Signed in |
+| `/app/integrations` | ATS connections (Greenhouse / Lever / Workable) | Signed in |
 | `/app/jobs`, `/app/jobs/:jobId` | Jobs & job detail | Signed in |
 | `/app/applicants` | Pipeline & rejection triggering | Signed in |
 | `/app/rejections` | Rejection flow builder | Signed in |
@@ -52,10 +61,11 @@ seeded data.
 - Client-side store (`src/lib/store.tsx`) persisting to `localStorage`
 
 The product brief also specifies Node.js + PostgreSQL, Postmark/SendGrid for
-email, a voucher partner (Voucherify / Tremendous) for rewards, and Clerk for
-auth. Those integration points are stubbed behind the store and a mock auth
-context so the full experience is demonstrable; swapping each for the real
-service is the v2 backend work.
+email, a voucher partner (Voucherify / Tremendous) for rewards, Clerk for auth,
+and ATS integrations (Greenhouse / Lever / Workable). Those integration points —
+including the ATS sync and the rejection webhook that fires the advocacy send —
+are modelled in the client store so the full plugin experience is demonstrable;
+wiring each to the real provider APIs and webhooks is the v2 backend work.
 
 ## Getting started
 

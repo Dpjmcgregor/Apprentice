@@ -47,6 +47,32 @@ export interface RejectionTemplate {
   rewardId: string;
 }
 
+// v1 is an add-on to an existing applicant tracking system, not a replacement.
+// Roles and candidates sync in from the connected ATS; "manual" covers the
+// lightweight standalone path (a Cushion-hosted job + application form) used
+// when a role has no ATS behind it.
+export type AtsProvider = "greenhouse" | "lever" | "workable";
+export type JobSource = AtsProvider | "manual";
+
+export const ATS_PROVIDERS: AtsProvider[] = ["greenhouse", "lever", "workable"];
+
+export const SOURCE_LABELS: Record<JobSource, string> = {
+  greenhouse: "Greenhouse",
+  lever: "Lever",
+  workable: "Workable",
+  manual: "Cushion (manual)",
+};
+
+export interface Integration {
+  provider: AtsProvider;
+  status: "connected" | "disconnected";
+  connectedAt?: string;
+  lastSyncedAt?: string;
+  // When on, a candidate marked rejected in the ATS fires a webhook that
+  // triggers Cushion's advocacy send automatically.
+  rejectionWebhook: boolean;
+}
+
 export interface Job {
   id: string;
   title: string;
@@ -56,6 +82,8 @@ export interface Job {
   description: string;
   status: "open" | "closed";
   createdAt: string; // ISO
+  source: JobSource;
+  externalId?: string; // id of the requisition in the source ATS
 }
 
 export interface RejectionRecord {
@@ -99,6 +127,7 @@ export interface BrandSettings {
 
 export interface AppData {
   brand: BrandSettings;
+  integrations: Integration[];
   jobs: Job[];
   applicants: Applicant[];
   rewards: Reward[];

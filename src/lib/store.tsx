@@ -10,6 +10,7 @@ import {
 import type {
   AppData,
   Applicant,
+  AtsProvider,
   BrandSettings,
   Job,
   RejectionTemplate,
@@ -19,7 +20,7 @@ import type {
 import { buildSeed } from "./seed";
 import { hexToHslString, readableForeground } from "./format";
 
-const STORAGE_KEY = "rdr:data:v1";
+const STORAGE_KEY = "cushion:data:v2";
 
 function loadData(): AppData {
   if (typeof window === "undefined") return buildSeed();
@@ -47,8 +48,18 @@ interface StoreContextValue {
   data: AppData;
   // brand
   updateBrand: (patch: Partial<BrandSettings>) => void;
+  // ATS integrations (v1 is a plugin to the customer's existing ATS)
+  connectAts: (provider: AtsProvider) => void;
+  disconnectAts: (provider: AtsProvider) => void;
+  syncAts: (provider: AtsProvider) => void;
+  setRejectionWebhook: (provider: AtsProvider, on: boolean) => void;
   // jobs
-  addJob: (job: Omit<Job, "id" | "createdAt" | "status"> & { status?: Job["status"] }) => Job;
+  addJob: (
+    job: Omit<Job, "id" | "createdAt" | "status" | "source"> & {
+      status?: Job["status"];
+      source?: Job["source"];
+    }
+  ) => Job;
   updateJob: (id: string, patch: Partial<Job>) => void;
   deleteJob: (id: string) => void;
   // applicants
@@ -113,11 +124,53 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setData((d) => ({ ...d, brand: { ...d.brand, ...patch } }));
   }, []);
 
+  const patchIntegration = (
+    provider: AtsProvider,
+    patch: (i: AppData["integrations"][number]) => AppData["integrations"][number]
+  ) => {
+    setData((d) => ({
+      ...d,
+      integrations: d.integrations.map((i) =>
+        i.provider === provider ? patch(i) : i
+      ),
+    }));
+  };
+
+  const connectAts = useCallback((provider: AtsProvider) => {
+    patchIntegration(provider, (i) => ({
+      ...i,
+      status: "connected",
+      connectedAt: nowIso(),
+      lastSyncedAt: nowIso(),
+      rejectionWebhook: true,
+    }));
+  }, []);
+
+  const disconnectAts = useCallback((provider: AtsProvider) => {
+    patchIntegration(provider, (i) => ({
+      ...i,
+      status: "disconnected",
+      rejectionWebhook: false,
+    }));
+  }, []);
+
+  const syncAts = useCallback((provider: AtsProvider) => {
+    patchIntegration(provider, (i) => ({ ...i, lastSyncedAt: nowIso() }));
+  }, []);
+
+  const setRejectionWebhook = useCallback(
+    (provider: AtsProvider, on: boolean) => {
+      patchIntegration(provider, (i) => ({ ...i, rejectionWebhook: on }));
+    },
+    []
+  );
+
   const addJob = useCallback<StoreContextValue["addJob"]>((job) => {
     const created: Job = {
       id: uid("job"),
       createdAt: nowIso(),
       status: job.status ?? "open",
+      source: job.source ?? "manual",
       title: job.title,
       location: job.location,
       department: job.department,
@@ -330,6 +383,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     () => ({
       data,
       updateBrand,
+      connectAts,
+      disconnectAts,
+      syncAts,
+      setRejectionWebhook,
       addJob,
       updateJob,
       deleteJob,
@@ -355,6 +412,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     [
       data,
       updateBrand,
+      connectAts,
+      disconnectAts,
+      syncAts,
+      setRejectionWebhook,
       addJob,
       updateJob,
       deleteJob,

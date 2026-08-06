@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import {
   Plus,
+  Plug,
   MapPin,
   Users,
   MailX,
@@ -14,6 +15,7 @@ import { useStore } from "@/lib/store";
 import { computeMetrics } from "@/lib/metrics";
 import { formatNumber, formatPercent } from "@/lib/format";
 import { PageHeader } from "@/components/app/PageHeader";
+import { SourceBadge } from "@/components/app/SourceBadge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -92,23 +94,31 @@ export default function Jobs() {
     <div className="space-y-6">
       <PageHeader
         title="Jobs"
-        description="Create roles and collect applicants. Every application becomes an advocacy opportunity."
+        description="Roles sync automatically from your connected ATS. Add a manual role only when it lives outside your ATS."
         actions={
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button>
-                <Plus className="h-4 w-4" />
-                New job
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-lg">
-              <DialogHeader>
-                <DialogTitle>Create a job</DialogTitle>
-                <DialogDescription>
-                  Post a role and get a shareable application form — no ATS
-                  required.
-                </DialogDescription>
-              </DialogHeader>
+          <div className="flex items-center gap-2">
+            <Button asChild variant="outline">
+              <Link to="/app/integrations">
+                <Plug className="h-4 w-4" />
+                Manage ATS
+              </Link>
+            </Button>
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Button>
+                  <Plus className="h-4 w-4" />
+                  Add manual job
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-lg">
+                <DialogHeader>
+                  <DialogTitle>Add a manual job</DialogTitle>
+                  <DialogDescription>
+                    For roles that aren't in your ATS. This creates a
+                    Cushion-hosted job with its own application form. ATS roles
+                    sync automatically from Integrations.
+                  </DialogDescription>
+                </DialogHeader>
               <div className="space-y-4 py-2">
                 <div className="space-y-2">
                   <Label htmlFor="title">Job title</Label>
@@ -188,10 +198,11 @@ export default function Jobs() {
                 <Button variant="ghost" onClick={() => setOpen(false)}>
                   Cancel
                 </Button>
-                <Button onClick={submit}>Create job</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+                  <Button onClick={submit}>Add job</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
         }
       />
 
@@ -218,7 +229,8 @@ export default function Jobs() {
                 </Badge>
               </div>
 
-              <div className="mt-3 flex flex-wrap gap-1.5">
+              <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                <SourceBadge source={job.source} withPrefix />
                 <Badge variant="outline">{job.department}</Badge>
                 <Badge variant="outline">{job.employmentType}</Badge>
               </div>

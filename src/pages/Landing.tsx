@@ -6,7 +6,7 @@ import {
   Gift,
   BarChart3,
   Layers,
-  Users,
+  Plug,
   ShoppingBag,
   Check,
 } from "lucide-react";
@@ -14,9 +14,9 @@ import { Button } from "@/components/ui/button";
 
 const FEATURES = [
   {
-    icon: Users,
-    title: "Applicant intake",
-    body: "Build a job, collect applications, or connect your ATS. Capture name, email, role and a short answer.",
+    icon: Plug,
+    title: "Plugs into your ATS",
+    body: "Connect Greenhouse, Lever or Workable in minutes. Roles and candidates sync automatically — no data re-entry, no ripping anything out.",
   },
   {
     icon: Wand2,
@@ -48,18 +48,18 @@ const FEATURES = [
 const STEPS = [
   {
     n: "01",
-    title: "Collect applicants",
-    body: "Post a role or plug in your ATS. Every applicant is a warm, opted-in audience.",
+    title: "Connect your ATS",
+    body: "Plug Cushion into Greenhouse, Lever or Workable. Your roles and candidates sync in automatically.",
   },
   {
     n: "02",
-    title: "Reject with care",
-    body: "When it's a no, send a personalised, on-brand message with an exclusive reward.",
+    title: "A candidate is rejected",
+    body: "The moment you reject someone in your ATS, Cushion catches the event — no change to your hiring workflow.",
   },
   {
     n: "03",
-    title: "Turn them into customers",
-    body: "Track redemptions and purchases. Report the % of rejected applicants who bought.",
+    title: "Reward & track",
+    body: "Cushion auto-sends the on-brand rejection and reward, then reports the % of rejected applicants who bought.",
   },
 ];
 
@@ -119,19 +119,24 @@ export default function Landing() {
         <div className="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-slate-200">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              Applicant advocacy platform
+              <Plug className="h-3 w-3 text-primary" />
+              An advocacy layer on top of your ATS
             </span>
             <h1 className="mt-6 text-4xl font-bold leading-tight sm:text-6xl">
               For every 1,000 applicants,{" "}
               <span className="text-primary">999 get rejected.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg text-slate-300">
-              They chose your brand — they wanted to work for you. Turn that
-              wasted moment into a personalised, on-brand rejection with an
-              exclusive reward, and watch rejected applicants become paying
-              customers.
+              They chose your brand — they wanted to work for you. Cushion plugs
+              into your ATS and turns every rejection into a personalised,
+              on-brand reward, so rejected applicants become paying customers.
             </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
+              <span className="text-xs uppercase tracking-wider">Works with</span>
+              <span className="font-semibold text-slate-200">Greenhouse</span>
+              <span className="font-semibold text-slate-200">Lever</span>
+              <span className="font-semibold text-slate-200">Workable</span>
+            </div>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg">
                 <Link to="/login">
