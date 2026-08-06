@@ -37,7 +37,7 @@ export default function Login() {
               <Sparkles className="h-4 w-4" />
             </span>
             <span className="font-semibold text-foreground">
-              Rejection Done Right
+              Cushion
             </span>
           </Link>
 

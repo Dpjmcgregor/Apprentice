@@ -163,7 +163,7 @@ export default function Settings() {
           >
             <ToggleRow
               label="White labelling"
-              hint="Remove “Powered by Rejection Done Right” from emails."
+              hint="Remove “Powered by Cushion” from emails."
               checked={brand.whiteLabel}
               disabled={!premium}
               onChange={(v) => updateBrand({ whiteLabel: v })}
@@ -243,7 +243,7 @@ export default function Settings() {
                 <p className="text-center text-[11px] text-muted-foreground">
                   {brand.whiteLabel
                     ? `Sent with care by ${brand.name}`
-                    : "Powered by Rejection Done Right"}
+                    : "Powered by Cushion"}
                 </p>
               </CardContent>
             </Card>

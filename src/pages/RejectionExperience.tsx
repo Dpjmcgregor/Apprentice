@@ -250,7 +250,7 @@ export default function RejectionExperience() {
             ) : (
               <span className="inline-flex items-center gap-1">
                 <Sparkles className="h-3 w-3" />
-                Powered by Rejection Done Right
+                Powered by Cushion
               </span>
             )}
           </div>

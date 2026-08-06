@@ -1,4 +1,4 @@
-// Domain model for Rejection Done Right.
+// Domain model for Cushion.
 // The MVP runs entirely client-side; this store stands in for the Node/Postgres
 // backend described in the product brief and persists to localStorage.
 

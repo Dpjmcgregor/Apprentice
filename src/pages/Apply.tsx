@@ -178,7 +178,7 @@ function Shell({
         {children}
         <p className="mt-6 flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
           <Sparkles className="h-3 w-3" />
-          {brand} · Powered by Rejection Done Right
+          {brand} · Powered by Cushion
         </p>
       </div>
     </div>

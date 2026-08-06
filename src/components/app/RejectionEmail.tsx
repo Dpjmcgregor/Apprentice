@@ -98,7 +98,7 @@ export function RejectionEmail({
         {brand.whiteLabel ? (
           <span>Sent with care by {brand.name}</span>
         ) : (
-          <span>Powered by Rejection Done Right</span>
+          <span>Powered by Cushion</span>
         )}
       </div>
     </div>

@@ -1,8 +1,8 @@
-# Rejection Done Right
+# Cushion
 
 **Turn job rejections into brand advocacy.** For every 1,000 applicants, 999 get
 rejected — and most get a generic email or nothing at all. Those are people who
-_chose your brand_. Rejection Done Right sends every unsuccessful applicant a
+_chose your brand_. Cushion sends every unsuccessful applicant a
 personalised, on-brand rejection with an exclusive reward, then measures how many
 of them go on to become paying customers.
 

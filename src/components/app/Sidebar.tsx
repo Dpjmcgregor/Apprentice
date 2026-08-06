@@ -37,8 +37,10 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           <Sparkles className="h-4 w-4" />
         </span>
         <div className="leading-tight">
-          <p className="text-sm font-semibold text-white">Rejection</p>
-          <p className="-mt-0.5 text-sm font-semibold text-white">Done Right</p>
+          <p className="text-base font-semibold text-white">Cushion</p>
+          <p className="-mt-0.5 text-[11px] font-medium text-sidebar-muted">
+            Applicant advocacy
+          </p>
         </div>
       </div>
 

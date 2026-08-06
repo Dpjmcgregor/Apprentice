@@ -96,7 +96,7 @@ export default function Landing() {
               <Sparkles className="h-4 w-4" />
             </span>
             <span className="font-semibold text-foreground">
-              Rejection Done Right
+              Cushion
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -297,7 +297,7 @@ export default function Landing() {
 
       <footer className="border-t bg-background py-8">
         <div className="mx-auto max-w-6xl px-4 text-center text-sm text-muted-foreground sm:px-6">
-          © {new Date().getFullYear()} Rejection Done Right — turn rejection into
+          © {new Date().getFullYear()} Cushion — turn rejection into
           advocacy.
         </div>
       </footer>

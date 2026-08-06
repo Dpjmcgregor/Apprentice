@@ -16,7 +16,7 @@ const NotFound = () => {
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-6">
       <Helmet>
-        <title>Page not found | Rejection Done Right</title>
+        <title>Page not found | Cushion</title>
         <meta name="robots" content="noindex" />
       </Helmet>
       <div className="max-w-md text-center">

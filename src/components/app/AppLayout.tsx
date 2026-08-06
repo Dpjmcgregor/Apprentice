@@ -27,7 +27,7 @@ export function AppLayout() {
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Sparkles className="h-4 w-4" />
           </span>
-          <span className="text-sm font-semibold">Rejection Done Right</span>
+          <span className="text-sm font-semibold">Cushion</span>
         </Link>
         <button
           onClick={() => setMobileOpen(true)}
