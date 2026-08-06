@@ -313,7 +313,7 @@ export function buildSeed(): AppData {
   return {
     brand: {
       name: "Nova & Co.",
-      primaryColor: "#6d3bf5",
+      primaryColor: "#B95F3B",
       senderName: "The Nova & Co. Team",
       replyTo: "careers@novaco.example",
       defaultTone: "warm",

@@ -20,14 +20,14 @@ import {
 import { cn } from "@/lib/utils";
 
 const PRESETS = [
-  "#6d3bf5",
-  "#e11d48",
-  "#0ea5e9",
-  "#f97316",
-  "#059669",
-  "#db2777",
-  "#7c3aed",
-  "#0f172a",
+  "#B95F3B", // terracotta (Cushion signature)
+  "#E4855B", // warm orange
+  "#2A1837", // plum ink
+  "#5B4C65", // muted plum
+  "#4C8C74", // sage green
+  "#0EA5E9", // sky
+  "#C9B8FF", // lavender
+  "#17111F", // ink
 ];
 
 const TONES: Tone[] = ["warm", "professional", "aspirational"];

@@ -32,6 +32,9 @@ export default {
         pink: "hsl(var(--pink))",
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
+        sage: "hsl(var(--sage))",
+        mint: "hsl(var(--mint))",
+        lavender: "hsl(var(--lavender))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar))",
           foreground: "hsl(var(--sidebar-foreground))",

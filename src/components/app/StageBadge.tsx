@@ -2,10 +2,10 @@ import { cn } from "@/lib/utils";
 import { STAGE_LABELS, type Stage } from "@/lib/types";
 
 const STYLES: Record<Stage, string> = {
-  applied: "bg-slate-100 text-slate-700",
-  screening: "bg-sky-100 text-sky-700",
-  interview: "bg-amber-100 text-amber-700",
-  final: "bg-violet-100 text-violet-700",
+  applied: "bg-stone-100 text-stone-600",
+  screening: "bg-[#E8F0EA] text-[#3F7C64]",
+  interview: "bg-[#F7E7D8] text-[#9C5A2C]",
+  final: "bg-[#ECE3F3] text-[#634C82]",
 };
 
 export function StageBadge({

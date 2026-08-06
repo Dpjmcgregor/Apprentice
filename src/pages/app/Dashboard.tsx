@@ -174,23 +174,23 @@ export default function Dashboard() {
                     <stop offset="100%" stopColor={brandColor} stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="gRedeemed" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#10b981" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#4C8C74" stopOpacity={0.32} />
+                    <stop offset="100%" stopColor="#4C8C74" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#eef1f6" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#EADFD0" vertical={false} />
                 <XAxis
                   dataKey="label"
                   tickLine={false}
                   axisLine={false}
                   fontSize={12}
-                  stroke="#94a3b8"
+                  stroke="#9C8F86"
                 />
                 <YAxis
                   tickLine={false}
                   axisLine={false}
                   fontSize={12}
-                  stroke="#94a3b8"
+                  stroke="#9C8F86"
                   allowDecimals={false}
                 />
                 <Tooltip content={<ChartTooltip />} />
@@ -206,7 +206,7 @@ export default function Dashboard() {
                   type="monotone"
                   dataKey="redeemed"
                   name="Redeemed"
-                  stroke="#10b981"
+                  stroke="#4C8C74"
                   strokeWidth={2}
                   fill="url(#gRedeemed)"
                 />
@@ -255,22 +255,22 @@ export default function Dashboard() {
               data={stages}
               margin={{ top: 8, right: 8, left: -16, bottom: 0 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#eef1f6" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#EADFD0" vertical={false} />
               <XAxis
                 dataKey="label"
                 tickLine={false}
                 axisLine={false}
                 fontSize={12}
-                stroke="#94a3b8"
+                stroke="#9C8F86"
               />
               <YAxis
                 tickLine={false}
                 axisLine={false}
                 fontSize={12}
-                stroke="#94a3b8"
+                stroke="#9C8F86"
                 unit="%"
               />
-              <Tooltip content={<ChartTooltip suffix="%" />} cursor={{ fill: "#f1f5f9" }} />
+              <Tooltip content={<ChartTooltip suffix="%" />} cursor={{ fill: "#EFE7DB" }} />
               <Bar dataKey="redemptionRate" name="Redemption" radius={[6, 6, 0, 0]}>
                 {stages.map((_, i) => (
                   <Cell

@@ -6,49 +6,55 @@
 
 @layer base {
   :root {
-    /* Light SaaS surface with a dark sidebar rendered via explicit classes. */
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    /* Cushion "Cutting Edge Warm" brand book: warm cream surfaces, plum-ink
+       dark sidebar, terracotta accent, sage/mint/lavender supporting hues. */
+    --background: 34 50% 95%; /* warm cream #F8F2EA */
+    --foreground: 266 29% 9%; /* plum ink #17111F */
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 266 29% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 266 29% 9%;
 
-    /* Brand primary — overridden at runtime from brand settings (see store). */
-    --primary: 255 82% 62%;
+    /* Brand primary — terracotta; overridden at runtime from brand settings. */
+    --primary: 17 52% 48%; /* terracotta #B95F3B */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 35 39% 89%; /* cream #EEE5D8 */
+    --secondary-foreground: 266 25% 14%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 36 38% 90%;
+    --muted-foreground: 275 8% 40%;
 
-    --accent: 255 82% 96%;
-    --accent-foreground: 255 60% 40%;
+    --accent: 22 53% 90%; /* warm peach tint */
+    --accent-foreground: 16 56% 39%;
 
     --pink: 330 85% 60%;
 
-    --success: 152 60% 40%;
-    --warning: 38 92% 50%;
+    /* Supporting brand hues (charts, badges). */
+    --sage: 105 11% 64%;
+    --mint: 162 45% 81%;
+    --lavender: 254 100% 86%;
+
+    --success: 158 30% 42%;
+    --warning: 30 53% 54%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 255 82% 62%;
+    --border: 36 34% 86%; /* warm tan */
+    --input: 36 34% 86%;
+    --ring: 17 52% 48%;
 
     --radius: 0.7rem;
 
-    /* Dark sidebar palette (fixed, independent of brand/theme). */
-    --sidebar: 222 47% 11%;
-    --sidebar-foreground: 214 20% 69%;
-    --sidebar-muted: 215 20% 45%;
-    --sidebar-accent: 222 40% 18%;
-    --sidebar-border: 222 30% 20%;
+    /* Plum-ink sidebar palette (fixed, independent of brand accent). */
+    --sidebar: 266 29% 9%; /* #17111F */
+    --sidebar-foreground: 311 12% 75%;
+    --sidebar-muted: 278 9% 53%;
+    --sidebar-accent: 275 39% 15%; /* #2A1837 */
+    --sidebar-border: 269 24% 20%;
   }
 }
 

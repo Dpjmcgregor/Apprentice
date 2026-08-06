@@ -20,7 +20,7 @@ import type {
 import { buildSeed } from "./seed";
 import { hexToHslString, readableForeground } from "./format";
 
-const STORAGE_KEY = "cushion:data:v2";
+const STORAGE_KEY = "cushion:data:v3";
 
 function loadData(): AppData {
   if (typeof window === "undefined") return buildSeed();
