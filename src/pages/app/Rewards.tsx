@@ -35,7 +35,7 @@ const TYPE_META: Record<RewardType, { label: string; icon: React.ReactNode }> = 
 };
 
 export default function Rewards() {
-  const { data, addReward, deleteReward } = useStore();
+  const { data, addReward, deleteReward, isRewardReferenced } = useStore();
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<{
     label: string;
@@ -189,6 +189,7 @@ export default function Rewards() {
         {data.rewards.map((r) => {
           const u = usage[r.id] ?? { issued: 0, redeemed: 0 };
           const rate = u.issued === 0 ? 0 : (u.redeemed / u.issued) * 100;
+          const referenced = isRewardReferenced(r.id);
           return (
             <Card key={r.id} className="flex flex-col p-5">
               <div className="flex items-start justify-between">
@@ -197,11 +198,18 @@ export default function Rewards() {
                 </span>
                 <button
                   onClick={() => {
-                    deleteReward(r.id);
-                    toast.success("Reward removed");
+                    if (referenced) {
+                      toast.error("This reward is in use", {
+                        description:
+                          "It's attached to a rejection flow or already-sent rejections. Detach it first.",
+                      });
+                      return;
+                    }
+                    if (deleteReward(r.id)) toast.success("Reward removed");
                   }}
-                  className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
-                  title="Delete reward"
+                  disabled={referenced}
+                  className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
+                  title={referenced ? "In use — can't delete" : "Delete reward"}
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>

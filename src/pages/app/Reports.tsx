@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Printer, TrendingUp, Heart } from "lucide-react";
 import { useStore } from "@/lib/store";
-import { computeMetrics, byStage } from "@/lib/metrics";
+import { reportMetrics, reportByStage, recentMonths } from "@/lib/metrics";
 import {
   formatCurrency,
   formatNumber,
@@ -11,6 +11,13 @@ import { PageHeader } from "@/components/app/PageHeader";
 import { BrandLogo } from "@/components/app/BrandLogo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -22,13 +29,21 @@ import {
 
 export default function Reports() {
   const { data } = useStore();
-  const m = useMemo(() => computeMetrics(data.applicants), [data.applicants]);
-  const stages = useMemo(() => byStage(data.applicants), [data.applicants]);
 
-  const month = new Date().toLocaleDateString("en-GB", {
-    month: "long",
-    year: "numeric",
-  });
+  const months = useMemo(() => recentMonths(Date.now(), 6), []);
+  const [monthKey, setMonthKey] = useState(months[0].key);
+  const selected = months.find((mo) => mo.key === monthKey) ?? months[0];
+
+  const m = useMemo(
+    () => reportMetrics(data.applicants, selected.window),
+    [data.applicants, selected.window]
+  );
+  const stages = useMemo(
+    () => reportByStage(data.applicants, selected.window),
+    [data.applicants, selected.window]
+  );
+
+  const month = selected.label;
 
   const rows: { label: string; value: string; note: string }[] = [
     {
@@ -69,10 +84,24 @@ export default function Reports() {
         title="Brand report"
         description="A growth and CRM report, not an HR one. Share it with marketing and finance."
         actions={
-          <Button variant="outline" onClick={() => window.print()}>
-            <Printer className="h-4 w-4" />
-            Export / print
-          </Button>
+          <div className="flex items-center gap-2">
+            <Select value={monthKey} onValueChange={setMonthKey}>
+              <SelectTrigger className="w-44">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {months.map((mo) => (
+                  <SelectItem key={mo.key} value={mo.key}>
+                    {mo.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button variant="outline" onClick={() => window.print()}>
+              <Printer className="h-4 w-4" />
+              Export / print
+            </Button>
+          </div>
         }
       />
 

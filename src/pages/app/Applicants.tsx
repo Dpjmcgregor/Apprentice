@@ -88,6 +88,12 @@ export default function Applicants() {
 
   const rejectOne = (a: Applicant) => {
     const template = data.templates[a.stage];
+    if (!template.enabled) {
+      toast.error(`${STAGE_LABELS[a.stage]} rejection flow is switched off`, {
+        description: "Turn it on in the rejection builder before sending.",
+      });
+      return;
+    }
     const reward = getReward(template.rewardId);
     rejectApplicant(a.id);
     toast.success(`Rejection sent to ${a.name.split(" ")[0]}`, {
@@ -98,13 +104,27 @@ export default function Applicants() {
   };
 
   const rejectSelected = () => {
-    if (selectedActive.length === 0) return;
-    rejectMany(selectedActive);
+    const chosen = rows.filter((a) => selectedActive.includes(a.id));
+    const sendable = chosen.filter((a) => data.templates[a.stage].enabled);
+    const skipped = chosen.length - sendable.length;
+    if (sendable.length === 0) {
+      toast.error("No rejections sent", {
+        description:
+          "The selected applicants are at stages whose rejection flow is switched off.",
+      });
+      return;
+    }
+    rejectMany(sendable.map((a) => a.id));
     toast.success(
-      `${selectedActive.length} on-brand rejection${
-        selectedActive.length > 1 ? "s" : ""
+      `${sendable.length} on-brand rejection${
+        sendable.length > 1 ? "s" : ""
       } sent`,
-      { description: "Each applicant got the reward matched to their stage." }
+      {
+        description:
+          skipped > 0
+            ? `${skipped} skipped — their stage flow is switched off.`
+            : "Each applicant got the reward matched to their stage.",
+      }
     );
     setSelected(new Set());
   };
@@ -282,6 +302,12 @@ export default function Applicants() {
                         size="sm"
                         variant="outline"
                         onClick={() => rejectOne(a)}
+                        disabled={!data.templates[a.stage].enabled}
+                        title={
+                          data.templates[a.stage].enabled
+                            ? undefined
+                            : `${STAGE_LABELS[a.stage]} rejection flow is off`
+                        }
                       >
                         <MailX className="h-4 w-4" />
                         Reject well

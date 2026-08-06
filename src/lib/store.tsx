@@ -69,7 +69,10 @@ interface StoreContextValue {
   // rewards
   addReward: (reward: Omit<Reward, "id">) => Reward;
   updateReward: (id: string, patch: Partial<Reward>) => void;
-  deleteReward: (id: string) => void;
+  // Returns false (and leaves the reward in place) if it is still referenced by
+  // a template or by an already-sent rejection.
+  deleteReward: (id: string) => boolean;
+  isRewardReferenced: (id: string) => boolean;
   // templates
   updateTemplate: (stage: Stage, patch: Partial<RejectionTemplate>) => void;
   // demo controls
@@ -183,11 +186,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     };
   };
 
+  // A stage can only be rejected when its template is switched on.
+  const canReject = (a: Applicant, templates: Record<Stage, RejectionTemplate>) =>
+    a.status === "active" && templates[a.stage].enabled;
+
   const rejectApplicant = useCallback((id: string) => {
     setData((d) => ({
       ...d,
       applicants: d.applicants.map((a) =>
-        a.id === id && a.status === "active"
+        a.id === id && canReject(a, d.templates)
           ? buildRejection(a, d.templates)
           : a
       ),
@@ -199,7 +206,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setData((d) => ({
       ...d,
       applicants: d.applicants.map((a) =>
-        set.has(a.id) && a.status === "active"
+        set.has(a.id) && canReject(a, d.templates)
           ? buildRejection(a, d.templates)
           : a
       ),
@@ -269,9 +276,24 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
-  const deleteReward = useCallback((id: string) => {
-    setData((d) => ({ ...d, rewards: d.rewards.filter((r) => r.id !== id) }));
-  }, []);
+  const isRewardReferenced = useCallback(
+    (id: string) =>
+      Object.values(data.templates).some((t) => t.rewardId === id) ||
+      data.applicants.some((a) => a.rejection?.rewardId === id),
+    [data.templates, data.applicants]
+  );
+
+  const deleteReward = useCallback(
+    (id: string) => {
+      const referenced =
+        Object.values(data.templates).some((t) => t.rewardId === id) ||
+        data.applicants.some((a) => a.rejection?.rewardId === id);
+      if (referenced) return false;
+      setData((d) => ({ ...d, rewards: d.rewards.filter((r) => r.id !== id) }));
+      return true;
+    },
+    [data.templates, data.applicants]
+  );
 
   const updateTemplate = useCallback(
     (stage: Stage, patch: Partial<RejectionTemplate>) => {
@@ -323,6 +345,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       addReward,
       updateReward,
       deleteReward,
+      isRewardReferenced,
       updateTemplate,
       resetDemo,
       getApplicantByToken,
@@ -347,6 +370,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       addReward,
       updateReward,
       deleteReward,
+      isRewardReferenced,
       updateTemplate,
       resetDemo,
       getApplicantByToken,

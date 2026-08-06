@@ -24,7 +24,7 @@ export default function Apply() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  if (!job) {
+  if (!job || job.status !== "open") {
     return (
       <Shell brand={brand.name}>
         <Card>

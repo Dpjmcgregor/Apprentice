@@ -193,7 +193,23 @@ export default function JobDetail() {
                       <Button
                         size="sm"
                         variant="outline"
+                        disabled={!data.templates[a.stage].enabled}
+                        title={
+                          data.templates[a.stage].enabled
+                            ? undefined
+                            : `${STAGE_LABELS[a.stage]} rejection flow is off`
+                        }
                         onClick={() => {
+                          if (!data.templates[a.stage].enabled) {
+                            toast.error(
+                              `${STAGE_LABELS[a.stage]} rejection flow is switched off`,
+                              {
+                                description:
+                                  "Turn it on in the rejection builder before sending.",
+                              }
+                            );
+                            return;
+                          }
                           rejectApplicant(a.id);
                           toast.success(`Rejection sent to ${a.name.split(" ")[0]}`, {
                             description: `${STAGE_LABELS[a.stage]} · ${

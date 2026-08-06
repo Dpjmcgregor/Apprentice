@@ -114,3 +114,60 @@ export function jobMetrics(data: AppData, jobId: string) {
   const applicants = data.applicants.filter((a) => a.jobId === jobId);
   return { applicants, metrics: computeMetrics(applicants) };
 }
+
+// ---- Month-windowed reporting ------------------------------------------
+
+export interface TimeWindow {
+  start: number; // inclusive (ms)
+  end: number; // exclusive (ms)
+}
+
+const inWindow = (iso: string | undefined, w: TimeWindow) => {
+  if (!iso) return false;
+  const t = new Date(iso).getTime();
+  return t >= w.start && t < w.end;
+};
+
+// A coherent monthly cohort report: the rejections *sent* in the window and
+// how they performed, plus applications *received* in the window. Avoids the
+// mismatched-denominator problem of counting each event in its own month.
+export function reportMetrics(
+  applicants: Applicant[],
+  w: TimeWindow
+): Metrics {
+  const cohort = applicants.filter((a) => inWindow(a.rejection?.sentAt, w));
+  const base = computeMetrics(cohort);
+  return {
+    ...base,
+    applications: applicants.filter((a) => inWindow(a.appliedAt, w)).length,
+    active: applicants.filter(
+      (a) => a.status === "active" && inWindow(a.appliedAt, w)
+    ).length,
+  };
+}
+
+export function reportByStage(applicants: Applicant[], w: TimeWindow) {
+  return byStage(applicants.filter((a) => inWindow(a.rejection?.sentAt, w)));
+}
+
+// Build the last `count` month windows, newest first, for a report selector.
+export function recentMonths(
+  now: number,
+  count = 6
+): { key: string; label: string; window: TimeWindow }[] {
+  const out: { key: string; label: string; window: TimeWindow }[] = [];
+  const ref = new Date(now);
+  for (let i = 0; i < count; i++) {
+    const start = new Date(ref.getFullYear(), ref.getMonth() - i, 1);
+    const end = new Date(ref.getFullYear(), ref.getMonth() - i + 1, 1);
+    out.push({
+      key: `${start.getFullYear()}-${start.getMonth()}`,
+      label: start.toLocaleDateString("en-GB", {
+        month: "long",
+        year: "numeric",
+      }),
+      window: { start: start.getTime(), end: end.getTime() },
+    });
+  }
+  return out;
+}
