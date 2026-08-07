@@ -6,6 +6,7 @@ import type {
   RejectionTemplate,
   Reward,
   Stage,
+  WaitlistEntry,
 } from "./types";
 import { STAGES } from "./types";
 
@@ -309,6 +310,15 @@ function buildApplicants(): Applicant[] {
   return out;
 }
 
+// A seeded head-start so the public "join N others" social proof isn't empty.
+export const seedWaitlist: WaitlistEntry[] = [
+  { id: "wl-1", email: "hola@brewdog.example", company: "BrewDog", createdAt: daysAgo(9), source: "seed" },
+  { id: "wl-2", email: "people@gymshark.example", company: "Gymshark", createdAt: daysAgo(7), source: "seed" },
+  { id: "wl-3", email: "talent@pretamanger.example", company: "Pret", createdAt: daysAgo(5), source: "seed" },
+  { id: "wl-4", email: "careers@monzo.example", company: "Monzo", createdAt: daysAgo(3), source: "seed" },
+  { id: "wl-5", email: "hr@gails.example", company: "Gail's", createdAt: daysAgo(1), source: "seed" },
+];
+
 export function buildSeed(): AppData {
   return {
     brand: {
@@ -326,5 +336,6 @@ export function buildSeed(): AppData {
     applicants: buildApplicants(),
     rewards: seedRewards,
     templates: seedTemplates,
+    waitlist: seedWaitlist,
   };
 }

@@ -125,6 +125,16 @@ export interface BrandSettings {
   plan: "starter" | "growth" | "premium";
 }
 
+// A visitor who signed up on the public site to be notified at launch.
+export interface WaitlistEntry {
+  id: string;
+  email: string;
+  name?: string;
+  company?: string;
+  createdAt: string; // ISO
+  source: string; // where they joined from, e.g. "landing-hero", "prompt"
+}
+
 export interface AppData {
   brand: BrandSettings;
   integrations: Integration[];
@@ -132,4 +142,5 @@ export interface AppData {
   applicants: Applicant[];
   rewards: Reward[];
   templates: Record<Stage, RejectionTemplate>;
+  waitlist: WaitlistEntry[];
 }

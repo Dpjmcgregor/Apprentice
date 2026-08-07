@@ -16,11 +16,12 @@ import type {
   RejectionTemplate,
   Reward,
   Stage,
+  WaitlistEntry,
 } from "./types";
 import { buildSeed } from "./seed";
 import { hexToHslString, readableForeground } from "./format";
 
-const STORAGE_KEY = "cushion:data:v3";
+const STORAGE_KEY = "cushion:data:v4";
 
 function loadData(): AppData {
   if (typeof window === "undefined") return buildSeed();
@@ -86,6 +87,13 @@ interface StoreContextValue {
   isRewardReferenced: (id: string) => boolean;
   // templates
   updateTemplate: (stage: Stage, patch: Partial<RejectionTemplate>) => void;
+  // waitlist (public site)
+  joinWaitlist: (input: {
+    email: string;
+    name?: string;
+    company?: string;
+    source: string;
+  }) => WaitlistEntry;
   // demo controls
   resetDemo: () => void;
   // lookups
@@ -361,6 +369,37 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     []
   );
 
+  const joinWaitlist = useCallback<StoreContextValue["joinWaitlist"]>(
+    (input) => {
+      const entry: WaitlistEntry = {
+        id: uid("wl"),
+        email: input.email.trim(),
+        name: input.name?.trim() || undefined,
+        company: input.company?.trim() || undefined,
+        createdAt: nowIso(),
+        source: input.source,
+      };
+      setData((d) => {
+        const list = d.waitlist ?? [];
+        // De-dupe by email — a repeat signup just refreshes the timestamp.
+        const existing = list.find(
+          (w) => w.email.toLowerCase() === entry.email.toLowerCase()
+        );
+        if (existing) {
+          return {
+            ...d,
+            waitlist: list.map((w) =>
+              w.id === existing.id ? { ...w, ...entry, id: existing.id } : w
+            ),
+          };
+        }
+        return { ...d, waitlist: [entry, ...list] };
+      });
+      return entry;
+    },
+    []
+  );
+
   const resetDemo = useCallback(() => {
     const seed = buildSeed();
     setData(seed);
@@ -404,6 +443,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       deleteReward,
       isRewardReferenced,
       updateTemplate,
+      joinWaitlist,
       resetDemo,
       getApplicantByToken,
       getReward,
@@ -433,6 +473,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       deleteReward,
       isRewardReferenced,
       updateTemplate,
+      joinWaitlist,
       resetDemo,
       getApplicantByToken,
       getReward,

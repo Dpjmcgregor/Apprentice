@@ -43,7 +43,7 @@ export default function Login() {
 
           <h1 className="text-2xl font-bold text-foreground">Sign in</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Demo workspace — pick a role and step in. No password needed.
+            Demo workspace, pick a role and step in. No password needed.
           </p>
 
           <form
@@ -107,32 +107,23 @@ export default function Login() {
         <div className="absolute inset-0 bg-grid opacity-40" />
         <div className="relative flex h-full flex-col justify-center px-12 text-white">
           <p className="text-sm font-medium uppercase tracking-wider text-primary">
-            For every 1,000 applicants
+            Applicant advocacy, on top of your ATS
           </p>
           <p className="mt-2 max-w-md text-4xl font-bold leading-tight">
-            999 get rejected. They chose your brand — don't waste them.
+            Keep the people who chose your brand.
           </p>
           <p className="mt-4 max-w-md text-slate-300">
-            Turn every “no” into a personalised, on-brand moment with an
-            exclusive reward. Measure how many rejected applicants become paying
-            customers.
+            When you reject a candidate in your ATS, Cushion sends a warm,
+            on-brand note with a real reward, then reports how many go on to
+            buy. Everything here runs on seeded demo data.
           </p>
-          <div className="mt-8 flex gap-8">
-            <Stat value="34%" label="Avg. redemption" />
-            <Stat value="11%" label="Rejected → customer" />
-            <Stat value="+62" label="Sentiment uplift" />
-          </div>
+          <ul className="mt-8 space-y-2 text-sm text-slate-300">
+            <li>Plugs into Greenhouse, Lever and Workable</li>
+            <li>You set the reward, the tone and the terms</li>
+            <li>Reporting built for growth, not just HR</li>
+          </ul>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <p className="text-2xl font-bold text-white">{value}</p>
-      <p className="text-xs text-slate-400">{label}</p>
     </div>
   );
 }

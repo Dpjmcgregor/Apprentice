@@ -3,31 +3,130 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cushion — Turn rejected applicants into brand advocates</title>
+    <title>Cushion | Keep the customers you reject</title>
     <meta
       name="description"
-      content="For every 1,000 applicants, 999 get rejected. Cushion plugs into your ATS (Greenhouse, Lever, Workable) and sends every rejected applicant a personalised, on-brand rejection with an exclusive reward — turning a wasted moment into a loyal customer."
+      content="You reject thousands of people who wanted to work for you. Cushion plugs into your ATS and turns each rejection into a warm, on-brand note with a real reward, so the people who chose your brand stay customers. Built for consumer brands."
     />
     <meta name="author" content="Cushion" />
+    <link rel="canonical" href="https://www.joincushion.com/" />
 
-    <meta property="og:title" content="Cushion" />
+    <meta property="og:title" content="Cushion | Keep the customers you reject" />
     <meta
       property="og:description"
-      content="Turn job rejections into brand advocacy. Every unsuccessful applicant gets a personalised, on-brand rejection and an exclusive reward — measured as a CRM and growth metric."
+      content="Cushion plugs into your ATS and turns each rejected applicant into a warm, on-brand note with a real reward. Talent installs it once, growth gets the reporting."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.joincushion.com/" />
     <meta property="og:site_name" content="Cushion" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Cushion" />
+    <meta name="twitter:title" content="Cushion | Keep the customers you reject" />
     <meta
       name="twitter:description"
-      content="Turn job rejections into brand advocacy moments — personalised rejections plus an exclusive reward for every applicant."
+      content="Turn each rejected applicant into a warm, on-brand note with a real reward. Talent installs it once, growth gets the reporting."
     />
   </head>
 
   <body>
+    <!--
+      Static content shell for non-JS consumers (LLM crawlers, Slack/LinkedIn
+      unfurls, scrapers). The React app renders into #root and this shell is
+      hidden for JS visitors by the inline script below, before first paint.
+    -->
+    <div id="ssr-shell">
+      <header>
+        <p><strong>Cushion</strong>, applicant advocacy for consumer brands</p>
+      </header>
+      <main>
+        <h1>You reject thousands of people who wanted to work for you.</h1>
+        <p>
+          Then you send a template that makes them like you less. Cushion plugs
+          into your existing applicant tracking system and turns each rejection
+          into a warm, on-brand note with a real reward, so the people who chose
+          your brand stay customers instead of walking away.
+        </p>
+
+        <h2>How it works</h2>
+        <ol>
+          <li>
+            Connect your ATS. Cushion works with Greenhouse, Lever and Workable.
+            Your roles and candidates sync in automatically.
+          </li>
+          <li>
+            When you reject a candidate in your ATS, Cushion catches the event.
+            Nothing changes about how you hire.
+          </li>
+          <li>
+            Cushion sends the on-brand rejection and reward, then reports the
+            share of rejected applicants who went on to buy.
+          </li>
+        </ol>
+
+        <h2>One product, two teams</h2>
+        <p>
+          Talent owns the ATS and installs Cushion once. Growth owns the reward
+          budget and gets the reporting. Neither has to nag the other.
+        </p>
+
+        <h2>The questions your legal and finance teams will ask</h2>
+        <dl>
+          <dt>Is putting an offer inside a rejection email legal?</dt>
+          <dd>
+            A rejection is a service message; a promotional reward is marketing,
+            which under UK GDPR and PECR needs a lawful basis and a clear
+            opt-out. Cushion is designed to support that, with consent captured
+            at the point of application, a visible opt-out on every message, and
+            a full audit trail. Confirm the approach with your own counsel; we
+            provide a DPA and a template DPIA. This is not legal advice.
+          </dd>
+          <dt>What happens to our margin if lots of people redeem?</dt>
+          <dd>
+            You set the reward and its terms. Your worst case is redemptions
+            multiplied by your reward cost, and it only fires on people you would
+            otherwise have lost.
+          </dd>
+          <dt>Doesn't a discount read as insulting after a rejection?</dt>
+          <dd>
+            The message leads with a genuine thank-you and the reward sits
+            underneath it, never as the headline. You set the tone per stage.
+          </dd>
+          <dt>What stops the codes ending up on a voucher site?</dt>
+          <dd>
+            Every code is unique to the applicant and single-use, tied to the
+            email we sent it to, with an expiry and an optional cap.
+          </dd>
+        </dl>
+
+        <h2>Pricing</h2>
+        <p>
+          Priced per applicant, banded by monthly volume. Join the waitlist to
+          get the pricing sheet and lock in launch pricing.
+        </p>
+
+        <h2>Join the waitlist</h2>
+        <p>
+          Cushion is rolling out to consumer brands in waves. Join the waitlist
+          at
+          <a href="https://www.joincushion.com/">joincushion.com</a>
+          and we will reach out with early access.
+        </p>
+      </main>
+      <footer>
+        <p>Cushion, applicant advocacy for consumer brands.</p>
+      </footer>
+    </div>
+
     <div id="root"></div>
+
+    <script>
+      // Hide the static shell for JS visitors before the app paints; non-JS
+      // consumers (crawlers, unfurlers) never run this and keep the content.
+      (function () {
+        var shell = document.getElementById("ssr-shell");
+        if (shell) shell.style.display = "none";
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
