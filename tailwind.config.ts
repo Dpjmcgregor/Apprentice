@@ -30,6 +30,18 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         pink: "hsl(var(--pink))",
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
+        sage: "hsl(var(--sage))",
+        mint: "hsl(var(--mint))",
+        lavender: "hsl(var(--lavender))",
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          muted: "hsl(var(--sidebar-muted))",
+          accent: "hsl(var(--sidebar-accent))",
+          border: "hsl(var(--sidebar-border))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
