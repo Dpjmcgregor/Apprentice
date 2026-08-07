@@ -4,20 +4,20 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { AppLayout } from "@/components/app/AppLayout";
 
-import Login from "@/pages/Login";
-import Apply from "@/pages/Apply";
-import RejectionExperience from "@/pages/RejectionExperience";
-import NotFound from "@/pages/NotFound";
+import Login from "@/views/Login";
+import Apply from "@/views/Apply";
+import RejectionExperience from "@/views/RejectionExperience";
+import NotFound from "@/views/NotFound";
 
-import Dashboard from "@/pages/app/Dashboard";
-import Jobs from "@/pages/app/Jobs";
-import JobDetail from "@/pages/app/JobDetail";
-import Applicants from "@/pages/app/Applicants";
-import Integrations from "@/pages/app/Integrations";
-import RejectionBuilder from "@/pages/app/RejectionBuilder";
-import Rewards from "@/pages/app/Rewards";
-import Reports from "@/pages/app/Reports";
-import Settings from "@/pages/app/Settings";
+import Dashboard from "@/views/app/Dashboard";
+import Jobs from "@/views/app/Jobs";
+import JobDetail from "@/views/app/JobDetail";
+import Applicants from "@/views/app/Applicants";
+import Integrations from "@/views/app/Integrations";
+import RejectionBuilder from "@/views/app/RejectionBuilder";
+import Rewards from "@/views/app/Rewards";
+import Reports from "@/views/app/Reports";
+import Settings from "@/views/app/Settings";
 
 // The client-side router for everything except "/". The marketing homepage is
 // served by Next as a Server Component at app/page.tsx; this app is mounted by
