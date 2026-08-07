@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import {
   Gift,
@@ -72,7 +72,7 @@ export default function RejectionExperience() {
               email.
             </p>
             <Button asChild variant="outline" className="mt-6">
-              <Link to="/">Go home</Link>
+              <a href="/">Go home</a>
             </Button>
           </CardContent>
         </Card>

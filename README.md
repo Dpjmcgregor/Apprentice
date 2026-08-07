@@ -1,10 +1,10 @@
 # Cushion
 
-**Turn job rejections into brand advocacy.** For every 1,000 applicants, 999 get
-rejected — and most get a generic email or nothing at all. Those are people who
-_chose your brand_. Cushion sends every unsuccessful applicant a
-personalised, on-brand rejection with an exclusive reward, then measures how many
-of them go on to become paying customers.
+**Turn job rejections into brand advocacy.** Most rejected applicants get a
+generic email or nothing at all — yet they are people who _chose your brand_.
+Cushion sends every unsuccessful applicant a personalised, on-brand rejection
+with an exclusive reward, then measures how many of them go on to become paying
+customers.
 
 Positioned as a **CRM and growth tool**, not an HR one. The metric that sells it:
 _what percentage of your rejected applicants became paying customers?_
@@ -39,7 +39,7 @@ seeded data.
 
 | Path | Page | Access |
 | --- | --- | --- |
-| `/` | Marketing landing page | Public |
+| `/` | Marketing homepage — server-rendered by Next (static HTML) | Public |
 | `/login` | Sign in (mock Clerk session) | Public |
 | `/apply/:jobId` | Application form | Public, no login |
 | `/r/:token` | Rejection experience + reward redemption | Public, no login |
@@ -54,9 +54,15 @@ seeded data.
 
 ## Tech stack
 
-- [Vite](https://vitejs.dev/) + [React 18](https://react.dev/) + TypeScript
+- [Next.js](https://nextjs.org/) App Router + [React 18](https://react.dev/) + TypeScript
+- The **marketing homepage (`/`) is a Server Component** — all of its copy is
+  rendered to static HTML in the initial response, and page metadata (title,
+  description, Open Graph) is emitted via the Next Metadata API. This keeps the
+  page fully crawlable by search engines, LLM crawlers and link unfurlers.
+- Everything else (sign in, the applicant flows, the authenticated workspace)
+  runs as a **client-side SPA on [React Router](https://reactrouter.com/)**,
+  mounted by a catch-all route and loaded with `ssr: false`.
 - [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
-- [React Router](https://reactrouter.com/) for routing
 - [Recharts](https://recharts.org/) for the advocacy dashboard
 - Client-side store (`src/lib/store.tsx`) persisting to `localStorage`
 
@@ -73,18 +79,25 @@ Requires Node.js & npm.
 
 ```sh
 npm install       # install dependencies
-npm run dev       # dev server (http://localhost:8080)
+npm run dev       # Next dev server (http://localhost:3000)
 npm run build     # production build
-npm run preview   # preview the build
+npm run start     # serve the production build
 npm run lint      # lint
 ```
 
 ## Project structure
 
 ```
+app/
+  layout.tsx       # Root layout + Metadata API (title/description/Open Graph) + client providers
+  page.tsx         # Marketing homepage — Server Component, static-rendered copy
+  providers.tsx    # Client providers (query, store, auth, tooltips, toasts)
+  [...rest]/       # Catch-all that mounts the client SPA for every non-"/" path
 src/
+  spa/SpaApp.tsx   # React Router app (login, applicant flows, workspace), ssr:false
   components/
     app/           # Shell + product components (Sidebar, MetricCard, RejectionEmail, charts…)
+    waitlist/      # Waitlist form, prompt & live count (client)
     ui/            # shadcn/ui primitives
   lib/
     types.ts       # Domain model
@@ -94,7 +107,7 @@ src/
     metrics.ts     # Dashboard/report metric calculations
     format.ts      # Formatters, hex→HSL brand colour, template rendering
   pages/
-    Landing, Login, Apply, RejectionExperience, NotFound
+    Login, Apply, RejectionExperience, NotFound
     app/           # Dashboard, Jobs, JobDetail, Applicants, RejectionBuilder, Rewards, Reports, Settings
   index.css        # Design tokens (light surface, dark sidebar, brand colour var)
 ```
@@ -104,4 +117,5 @@ src/
 - **Brand colour** set in Settings updates the CSS custom properties at runtime,
   re-theming the whole app and every email preview live.
 - **Reset demo data** in Settings restores the seeded dataset at any time.
-- Deployed as a static SPA (see `vercel.json` for the client-routing rewrite).
+- Deployed on Vercel as a Next.js app: the homepage is server-rendered for
+  crawlability, the rest hydrates as a client SPA.

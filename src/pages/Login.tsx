@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { useAuth, type Role } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -32,14 +32,14 @@ export default function Login() {
       {/* Left: form */}
       <div className="flex w-full flex-col justify-center px-6 py-12 sm:px-12 lg:w-1/2">
         <div className="mx-auto w-full max-w-sm">
-          <Link to="/" className="mb-10 flex items-center gap-2">
+          <a href="/" className="mb-10 flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Sparkles className="h-4 w-4" />
             </span>
             <span className="font-semibold text-foreground">
               Cushion
             </span>
-          </Link>
+          </a>
 
           <h1 className="text-2xl font-bold text-foreground">Sign in</h1>
           <p className="mt-1 text-sm text-muted-foreground">

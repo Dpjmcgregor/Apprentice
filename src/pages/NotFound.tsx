@@ -32,7 +32,7 @@ const NotFound = () => {
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <Button asChild>
-            <Link to="/">Home</Link>
+            <a href="/">Home</a>
           </Button>
           <Button asChild variant="outline">
             <Link to="/app">Go to dashboard</Link>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo, useState } from "react";
 import { formatCurrency, formatNumber } from "@/lib/format";
 

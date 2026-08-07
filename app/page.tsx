@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import {
   Sparkles,
   ArrowRight,
@@ -12,12 +11,16 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useStore } from "@/lib/store";
-import { formatNumber } from "@/lib/format";
 import { WaitlistForm } from "@/components/waitlist/WaitlistForm";
 import { WaitlistPrompt } from "@/components/waitlist/WaitlistPrompt";
+import { WaitlistCount } from "@/components/waitlist/WaitlistCount";
 import { RejectionCalculator } from "@/components/RejectionCalculator";
 import { EmailShowcase } from "@/components/EmailShowcase";
+
+// This is a Server Component. Every piece of marketing copy below is rendered
+// to static HTML in the initial response; only the genuinely interactive parts
+// (the waitlist form, the modal prompt, the calculator, the live count) are
+// client components rendered as leaves.
 
 const FEATURES = [
   {
@@ -111,10 +114,7 @@ const FAQ = [
   },
 ];
 
-export default function Landing() {
-  const { data } = useStore();
-  const waitlistCount = data.waitlist?.length ?? 0;
-
+export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       <WaitlistPrompt />
@@ -126,19 +126,17 @@ export default function Landing() {
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Sparkles className="h-4 w-4" />
             </span>
-            <span className="font-semibold text-foreground">
-              Cushion
-            </span>
+            <span className="font-semibold text-foreground">Cushion</span>
           </div>
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost">
-              <Link to="/login">Sign in</Link>
+              <a href="/login">Sign in</a>
             </Button>
             <Button asChild>
-              <Link to="/login">
+              <a href="/login">
                 View live demo
                 <ArrowRight className="h-4 w-4" />
-              </Link>
+              </a>
             </Button>
           </div>
         </div>
@@ -182,7 +180,7 @@ export default function Landing() {
                 variant="outline"
                 className="border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
               >
-                <Link to="/login">Explore the demo</Link>
+                <a href="/login">Explore the demo</a>
               </Button>
             </div>
           </div>
@@ -296,7 +294,7 @@ export default function Landing() {
               handles the rest automatically.
             </p>
             <Button asChild variant="outline" className="mt-5">
-              <Link to="/login">See the integration</Link>
+              <a href="/login">See the integration</a>
             </Button>
           </div>
           <div className="rounded-2xl border bg-card p-6">
@@ -312,7 +310,7 @@ export default function Landing() {
               buy.
             </p>
             <Button asChild className="mt-5">
-              <Link to="/login">See the reporting</Link>
+              <a href="/login">See the reporting</a>
             </Button>
           </div>
         </div>
@@ -376,9 +374,7 @@ export default function Landing() {
                   </span>
                 )}
               </div>
-              <p className="mt-4 text-3xl font-bold text-foreground">
-                {p.band}
-              </p>
+              <p className="mt-4 text-3xl font-bold text-foreground">{p.band}</p>
               <p className="mt-1 text-sm text-muted-foreground">{p.cap}</p>
               <ul className="mt-6 flex-1 space-y-3">
                 {p.features.map((feat) => (
@@ -415,20 +411,14 @@ export default function Landing() {
               Join the waitlist
             </h2>
             <p className="mt-3 text-muted-foreground">
-              We're onboarding consumer brands in waves. Add your details and
-              we'll reach out with early access to Cushion.
+              We&rsquo;re onboarding consumer brands in waves. Add your details
+              and we&rsquo;ll reach out with early access to Cushion.
             </p>
           </div>
           <Card className="mx-auto mt-8 max-w-md p-6">
             <WaitlistForm source="landing-section" />
           </Card>
-          <p className="mt-4 text-center text-sm text-muted-foreground">
-            You'll be in good company:{" "}
-            <span className="font-semibold text-foreground">
-              {formatNumber(waitlistCount)}
-            </span>{" "}
-            {waitlistCount === 1 ? "brand has" : "brands have"} already joined.
-          </p>
+          <WaitlistCount />
         </div>
       </section>
 
@@ -439,8 +429,8 @@ export default function Landing() {
             What percentage of your rejected applicants became customers?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-slate-300">
-            If you don't know, you're leaving your warmest audience on the table.
-            Let's fix that.
+            If you don&rsquo;t know, you&rsquo;re leaving your warmest audience
+            on the table. Let&rsquo;s fix that.
           </p>
           <Button asChild size="lg" className="mt-8">
             <a href="#waitlist">
@@ -453,8 +443,7 @@ export default function Landing() {
 
       <footer className="border-t bg-background py-8">
         <div className="mx-auto max-w-6xl px-4 text-center text-sm text-muted-foreground sm:px-6">
-          © {new Date().getFullYear()} Cushion, turn rejection into
-          advocacy.
+          © 2026 Cushion, turn rejection into advocacy.
         </div>
       </footer>
     </div>

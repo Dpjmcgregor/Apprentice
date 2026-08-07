@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Sparkles, MapPin, CheckCircle2 } from "lucide-react";
 import { useStore } from "@/lib/store";
 import { Button } from "@/components/ui/button";
@@ -67,7 +67,7 @@ export default function Apply() {
               outcome, you'll hear from us — properly.
             </p>
             <Button asChild variant="outline" className="mt-6">
-              <Link to="/">Back to home</Link>
+              <a href="/">Back to home</a>
             </Button>
           </CardContent>
         </Card>
