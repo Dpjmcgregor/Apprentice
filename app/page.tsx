@@ -21,6 +21,7 @@ import { WaitlistPrompt } from "@/components/waitlist/WaitlistPrompt";
 import { WaitlistCount } from "@/components/waitlist/WaitlistCount";
 import { RejectionCalculator } from "@/components/RejectionCalculator";
 import { BrandExample } from "@/components/BrandExample";
+import { HowItWorks } from "@/components/HowItWorks";
 
 // This is a Server Component. Every piece of marketing copy below is rendered
 // to static HTML in the initial response; only the genuinely interactive parts
@@ -286,24 +287,17 @@ export default function HomePage() {
       {/* How it works */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-foreground">How it works</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            The process
+          </p>
+          <h2 className="mt-2 text-3xl font-bold text-foreground">
+            How it works
+          </h2>
           <p className="mt-3 text-muted-foreground">
             Five steps. Your hiring process stays exactly as it is.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {STEPS.map((s) => (
-            <Card key={s.n} className="p-6">
-              <p className="font-display text-3xl font-bold text-primary">
-                {s.n}
-              </p>
-              <h3 className="mt-3 text-lg font-semibold text-foreground">
-                {s.title}
-              </h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
-            </Card>
-          ))}
-        </div>
+        <HowItWorks steps={STEPS} />
       </section>
 
       {/* Rewards */}
