@@ -30,6 +30,18 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         pink: "hsl(var(--pink))",
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
+        sage: "hsl(var(--sage))",
+        mint: "hsl(var(--mint))",
+        lavender: "hsl(var(--lavender))",
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          muted: "hsl(var(--sidebar-muted))",
+          accent: "hsl(var(--sidebar-accent))",
+          border: "hsl(var(--sidebar-border))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -65,8 +77,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        soft: "0 4px 20px -6px hsl(0 0% 0% / 0.4)",
-        card: "0 20px 60px -20px hsl(0 0% 0% / 0.6)",
+        soft: "var(--shadow-soft)",
+        card: "var(--shadow-soft)",
+        elevated: "var(--shadow-elevated)",
       },
       keyframes: {
         "accordion-down": {
