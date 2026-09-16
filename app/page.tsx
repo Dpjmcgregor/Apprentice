@@ -20,7 +20,7 @@ import { WaitlistForm } from "@/components/waitlist/WaitlistForm";
 import { WaitlistPrompt } from "@/components/waitlist/WaitlistPrompt";
 import { WaitlistCount } from "@/components/waitlist/WaitlistCount";
 import { RejectionCalculator } from "@/components/RejectionCalculator";
-import { EmailShowcase } from "@/components/EmailShowcase";
+import { BrandExample } from "@/components/BrandExample";
 
 // This is a Server Component. Every piece of marketing copy below is rendered
 // to static HTML in the initial response; only the genuinely interactive parts
@@ -336,22 +336,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* The message Cushion sends */}
+      {/* Real-world example */}
       <section className="border-b bg-card">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold text-foreground">
-              The message Cushion sends
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              In your brand&rsquo;s livery, alongside your own emails. One when
-              they apply, one if it doesn&rsquo;t work out. Cushion never sends
-              your rejection for you.
-            </p>
-          </div>
-          <div className="mt-12">
-            <EmailShowcase />
-          </div>
+          <BrandExample />
         </div>
       </section>
 
