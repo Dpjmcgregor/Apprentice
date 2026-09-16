@@ -291,19 +291,82 @@ export default function HomePage() {
             Five steps. Your hiring process stays exactly as it is.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {STEPS.map((s) => (
-            <Card key={s.n} className="p-6">
-              <p className="font-display text-3xl font-bold text-primary">
-                {s.n}
-              </p>
-              <h3 className="mt-3 text-lg font-semibold text-foreground">
+        {/* Desktop: horizontal process, one row, connector line through the
+            numbered nodes. Step 3 -> 4 connector is dashed (conditional). */}
+        <ol className="mt-14 hidden lg:grid lg:grid-cols-5">
+          {STEPS.map((s, i) => (
+            <li key={s.n} className="relative">
+              <div className="relative flex h-12 items-center">
+                {i < STEPS.length - 1 &&
+                  (i === 2 ? (
+                    <>
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-6 top-1/2 z-0 w-full -translate-y-1/2 border-t border-dashed border-muted-foreground/40"
+                      />
+                      <span className="absolute left-6 top-1/2 z-20 flex w-full -translate-y-1/2 justify-center">
+                        <Badge
+                          variant="neutral"
+                          className="px-2 py-0 text-[11px] font-medium"
+                        >
+                          If unsuccessful
+                        </Badge>
+                      </span>
+                    </>
+                  ) : (
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-6 top-1/2 z-0 h-px w-full -translate-y-1/2 bg-border"
+                    />
+                  ))}
+                <span className="relative z-10 inline-flex h-12 w-12 items-center bg-background font-display text-3xl font-bold text-primary">
+                  {s.n}
+                </span>
+              </div>
+              <h3 className="mt-5 pr-6 text-lg font-semibold text-foreground">
                 {s.title}
               </h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
-            </Card>
+              <p className="mt-2 pr-6 text-sm text-muted-foreground">{s.body}</p>
+            </li>
           ))}
-        </div>
+        </ol>
+
+        {/* Mobile / tablet: vertical timeline, nodes on the left. */}
+        <ol className="mt-12 lg:hidden">
+          {STEPS.map((s, i) => (
+            <li key={s.n} className="relative flex gap-4 pb-8 last:pb-0">
+              {i < STEPS.length - 1 &&
+                (i === 2 ? (
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-0 left-6 top-12 -translate-x-1/2 border-l border-dashed border-muted-foreground/40"
+                  />
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-0 left-6 top-12 w-px -translate-x-1/2 bg-border"
+                  />
+                ))}
+              <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center bg-background font-display text-3xl font-bold text-primary">
+                {s.n}
+              </span>
+              <div className="pt-1.5">
+                <h3 className="text-lg font-semibold text-foreground">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
+                {i === 2 && (
+                  <Badge
+                    variant="neutral"
+                    className="mt-3 px-2 py-0 text-[11px] font-medium"
+                  >
+                    If unsuccessful
+                  </Badge>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* Rewards */}
