@@ -319,7 +319,7 @@ export default function Dashboard() {
                 <StageBadge stage={a.rejection!.stageAtRejection} />
                 <div className="hidden w-24 items-center gap-1 sm:flex">
                   {a.rejection!.opened ? (
-                    <span className="text-xs text-emerald-600">Opened</span>
+                    <span className="text-xs text-success">Opened</span>
                   ) : (
                     <span className="text-xs text-muted-foreground">Sent</span>
                   )}

@@ -47,7 +47,7 @@ export function AppLayout() {
       >
         <div
           className={cn(
-            "absolute inset-0 bg-slate-900/60 transition-opacity",
+            "absolute inset-0 bg-foreground/50 backdrop-blur-sm transition-opacity",
             mobileOpen ? "opacity-100" : "opacity-0"
           )}
           onClick={() => setMobileOpen(false)}

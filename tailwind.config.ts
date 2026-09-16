@@ -77,8 +77,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        soft: "0 4px 20px -6px hsl(0 0% 0% / 0.4)",
-        card: "0 20px 60px -20px hsl(0 0% 0% / 0.6)",
+        soft: "var(--shadow-soft)",
+        card: "var(--shadow-soft)",
+        elevated: "var(--shadow-elevated)",
       },
       keyframes: {
         "accordion-down": {

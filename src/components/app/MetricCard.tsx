@@ -20,7 +20,7 @@ export function MetricCard({
   return (
     <Card
       className={cn(
-        "p-5",
+        "p-5 transition-shadow duration-200 hover:shadow-elevated",
         accent && "border-primary/30 bg-primary/[0.04]",
         className
       )}
@@ -30,7 +30,7 @@ export function MetricCard({
         {icon && (
           <span
             className={cn(
-              "flex h-8 w-8 items-center justify-center rounded-lg [&_svg]:h-4 [&_svg]:w-4",
+              "flex h-9 w-9 items-center justify-center rounded-lg [&_svg]:h-4 [&_svg]:w-4",
               accent
                 ? "bg-primary/10 text-primary"
                 : "bg-secondary text-muted-foreground"
@@ -40,7 +40,7 @@ export function MetricCard({
           </span>
         )}
       </div>
-      <p className="mt-3 text-3xl font-bold tracking-tight text-foreground">
+      <p className="mt-3 text-3xl font-semibold tracking-tight text-foreground tabular-nums">
         {value}
       </p>
       {sub && <p className="mt-1 text-sm text-muted-foreground">{sub}</p>}

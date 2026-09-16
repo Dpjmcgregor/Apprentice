@@ -121,13 +121,13 @@ export default function Integrations() {
                     <span
                       className={
                         "inline-flex items-center gap-1.5 text-xs font-medium " +
-                        (connected ? "text-emerald-600" : "text-muted-foreground")
+                        (connected ? "text-success" : "text-muted-foreground")
                       }
                     >
                       <span
                         className={
                           "h-1.5 w-1.5 rounded-full " +
-                          (connected ? "bg-emerald-500" : "bg-slate-300")
+                          (connected ? "bg-success" : "bg-muted-foreground/40")
                         }
                       />
                       {connected ? "Connected" : "Not connected"}

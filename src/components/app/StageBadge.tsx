@@ -1,11 +1,14 @@
 import { cn } from "@/lib/utils";
+import { Badge, type BadgeProps } from "@/components/ui/badge";
 import { STAGE_LABELS, type Stage } from "@/lib/types";
 
-const STYLES: Record<Stage, string> = {
-  applied: "bg-stone-100 text-stone-600",
-  screening: "bg-[#E8F0EA] text-[#3F7C64]",
-  interview: "bg-[#F7E7D8] text-[#9C5A2C]",
-  final: "bg-[#ECE3F3] text-[#634C82]",
+// Each pipeline stage maps to a tonal Badge variant driven by brand tokens,
+// so stage colors stay consistent with the rest of the design language.
+const STAGE_VARIANT: Record<Stage, BadgeProps["variant"]> = {
+  applied: "neutral",
+  screening: "success",
+  interview: "warning",
+  final: "lavender",
 };
 
 export function StageBadge({
@@ -16,35 +19,22 @@ export function StageBadge({
   className?: string;
 }) {
   return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
-        STYLES[stage],
-        className
-      )}
-    >
+    <Badge variant={STAGE_VARIANT[stage]} className={className}>
       {STAGE_LABELS[stage]}
-    </span>
+    </Badge>
   );
 }
 
 export function StatusBadge({ rejected }: { rejected: boolean }) {
   return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium",
-        rejected
-          ? "bg-rose-50 text-rose-600"
-          : "bg-emerald-50 text-emerald-600"
-      )}
-    >
+    <Badge variant={rejected ? "danger" : "success"}>
       <span
         className={cn(
           "h-1.5 w-1.5 rounded-full",
-          rejected ? "bg-rose-500" : "bg-emerald-500"
+          rejected ? "bg-destructive" : "bg-success"
         )}
       />
       {rejected ? "Rejected" : "Active"}
-    </span>
+    </Badge>
   );
 }

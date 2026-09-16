@@ -280,7 +280,7 @@ export default function RejectionBuilder() {
             </span>
           </div>
           <div className="sticky top-6">
-            <div className="rounded-2xl bg-slate-100 p-4 sm:p-6">
+            <div className="rounded-2xl bg-secondary/60 p-4 sm:p-6">
               <RejectionEmail
                 brand={data.brand}
                 template={template}
