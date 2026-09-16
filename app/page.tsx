@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { WaitlistForm } from "@/components/waitlist/WaitlistForm";
 import { WaitlistPrompt } from "@/components/waitlist/WaitlistPrompt";
 import { WaitlistCount } from "@/components/waitlist/WaitlistCount";
@@ -292,7 +293,7 @@ export default function HomePage() {
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((s) => (
-            <div key={s.n} className="rounded-2xl border bg-card p-6">
+            <Card key={s.n} className="p-6">
               <p className="font-display text-3xl font-bold text-primary">
                 {s.n}
               </p>
@@ -300,7 +301,7 @@ export default function HomePage() {
                 {s.title}
               </h3>
               <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
-            </div>
+            </Card>
           ))}
         </div>
       </section>
@@ -318,12 +319,9 @@ export default function HomePage() {
           </div>
           <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
             {REWARDS.map((r) => (
-              <div
+              <Card
                 key={r.title}
-                className={
-                  "rounded-2xl border bg-card p-6 " +
-                  (r.lead ? "ring-2 ring-primary" : "")
-                }
+                className={"p-6 " + (r.lead ? "ring-2 ring-primary" : "")}
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <r.icon className="h-5 w-5" />
@@ -332,7 +330,7 @@ export default function HomePage() {
                   {r.title}
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">{r.body}</p>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
@@ -369,13 +367,13 @@ export default function HomePage() {
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {CONSENT.map((c) => (
-            <div key={c.title} className="rounded-2xl border bg-card p-6">
+            <Card key={c.title} className="p-6">
               <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <c.icon className="h-5 w-5" />
               </span>
               <h3 className="mt-4 font-semibold text-foreground">{c.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{c.body}</p>
-            </div>
+            </Card>
           ))}
         </div>
         <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-muted-foreground">
@@ -397,13 +395,13 @@ export default function HomePage() {
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((f) => (
-              <div key={f.title} className="rounded-2xl border bg-card p-6">
+              <Card key={f.title} className="p-6">
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <f.icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 font-semibold text-foreground">{f.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{f.body}</p>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
@@ -421,10 +419,8 @@ export default function HomePage() {
           </p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border bg-card p-6">
-            <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
-              Talent / HR
-            </span>
+          <Card className="p-6">
+            <Badge variant="neutral">Talent / HR</Badge>
             <h3 className="mt-3 text-lg font-semibold text-foreground">
               Installs once, then forgets about it
             </h3>
@@ -436,11 +432,9 @@ export default function HomePage() {
             <Button asChild variant="outline" className="mt-5">
               <a href="/login">See the integration</a>
             </Button>
-          </div>
-          <div className="rounded-2xl border bg-card p-6">
-            <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-              Growth / CRM
-            </span>
+          </Card>
+          <Card className="p-6">
+            <Badge variant="brand">Growth / CRM</Badge>
             <h3 className="mt-3 text-lg font-semibold text-foreground">
               Owns the reward, and the reporting
             </h3>
@@ -451,7 +445,7 @@ export default function HomePage() {
             <Button asChild className="mt-5">
               <a href="/login">See the reporting</a>
             </Button>
-          </div>
+          </Card>
         </div>
       </section>
 
@@ -485,12 +479,12 @@ export default function HomePage() {
           </div>
           <div className="mt-10 space-y-4">
             {FAQ.map((f) => (
-              <div key={f.q} className="rounded-2xl border bg-card p-6">
+              <Card key={f.q} className="p-6">
                 <h3 className="font-semibold text-foreground">{f.q}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {f.a}
                 </p>
-              </div>
+              </Card>
             ))}
           </div>
           <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-muted-foreground">
@@ -558,10 +552,13 @@ export default function HomePage() {
       <section id="waitlist" className="scroll-mt-20 bg-secondary/50">
         <div className="mx-auto max-w-2xl px-4 py-20 sm:px-6">
           <div className="mx-auto max-w-md text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
+            <Badge
+              variant="outline"
+              className="gap-2 bg-card px-3 py-1 text-muted-foreground"
+            >
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
               Early access
-            </span>
+            </Badge>
             <h2 className="mt-4 text-3xl font-bold text-foreground">
               Join the waitlist
             </h2>
