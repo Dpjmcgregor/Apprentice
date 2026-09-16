@@ -30,7 +30,7 @@ export function RejectionCalculator() {
           min={0}
         />
         <RangeField
-          label="Share you reject"
+          label="Share you don't hire"
           suffix="%"
           value={rejectRate}
           onChange={setRejectRate}
@@ -44,7 +44,7 @@ export function RejectionCalculator() {
           onChange={setRedemption}
           min={0}
           max={60}
-          hint="How many rejected applicants use their reward"
+          hint="How many opted-in applicants use their reward"
         />
         <NumberField
           label="Average order value"
@@ -59,7 +59,7 @@ export function RejectionCalculator() {
       {/* Outputs */}
       <div className="flex flex-col justify-center gap-3">
         <Output
-          label="Warm audience you reject a year"
+          label="Applicants you don't hire a year"
           value={formatNumber(rejected)}
         />
         <Output

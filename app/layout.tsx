@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "../src/index.css";
 import { Providers } from "./providers";
 
-const TITLE = "Cushion | Keep the customers you reject";
+const TITLE = "Cushion | Your applicants are your best advocates";
 const DESCRIPTION =
-  "You reject thousands of people who wanted to work for you. Cushion plugs into your ATS and turns each rejection into a warm, on-brand note with a real reward, so the people who chose your brand stay customers. Built for consumer brands.";
+  "Cushion gives every applicant access to exclusive rewards from the moment they apply, whether they get the job or not. Applicant advocacy for consumer brands, built around UK GDPR and PECR.";
 const OG_DESCRIPTION =
-  "Cushion plugs into your ATS and turns each rejected applicant into a warm, on-brand note with a real reward. Talent installs it once, growth gets the reporting.";
+  "The people who apply to work for you are your best advocates. Cushion gives every applicant access to exclusive rewards from the moment they apply, with consent handled properly.";
 
 // Metadata API: title, description and Open Graph tags are emitted into the
 // server-rendered <head> by Next, not hardcoded in an index.html.
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description:
-      "Turn each rejected applicant into a warm, on-brand note with a real reward. Talent installs it once, growth gets the reporting.",
+      "Every applicant gets access to exclusive rewards from the moment they apply. Whether they get the job or not. Applicant advocacy for consumer brands.",
   },
 };
 

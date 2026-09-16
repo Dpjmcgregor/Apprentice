@@ -4,9 +4,13 @@ import {
   Wand2,
   Gift,
   BarChart3,
-  Layers,
   Plug,
   ShoppingBag,
+  ShieldCheck,
+  Coffee,
+  Ticket,
+  Eye,
+  FileText,
   Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,54 +26,104 @@ import { EmailShowcase } from "@/components/EmailShowcase";
 // (the waitlist form, the modal prompt, the calculator, the live count) are
 // client components rendered as leaves.
 
-const FEATURES = [
-  {
-    icon: Plug,
-    title: "Plugs into your ATS",
-    body: "Connect Greenhouse, Lever or Workable in minutes. Roles and candidates sync automatically, no data re-entry, no ripping anything out.",
-  },
-  {
-    icon: Wand2,
-    title: "Rejection flow builder",
-    body: "Personalise every rejection by name, role and stage reached. Set the tone. Add a hiring-manager video.",
-  },
-  {
-    icon: Gift,
-    title: "Reward engine",
-    body: "Attach a discount, free product or early access. Triggered automatically, trackable per applicant.",
-  },
-  {
-    icon: Layers,
-    title: "Segmentation",
-    body: "First-round rejections get one message. Final-stage gets a more personal note and a higher-value reward.",
-  },
-  {
-    icon: BarChart3,
-    title: "Advocacy tracking",
-    body: "Open rates, redemptions, social shares, and whether rejected applicants go on to buy.",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Brand reporting",
-    body: "A monthly growth and CRM report: applications, rewards redeemed, purchases, sentiment uplift.",
-  },
-];
+const STAT_SOURCE_URL =
+  "https://standout-cv.com/stats/how-long-does-it-take-to-get-a-job";
 
 const STEPS = [
   {
     n: "01",
     title: "Connect your ATS",
-    body: "Plug Cushion into Greenhouse, Lever or Workable. Your roles and candidates sync in automatically.",
+    body: "Connect TeamTailor, Greenhouse, Lever or Workable. Nothing changes about how you hire.",
   },
   {
     n: "02",
-    title: "A candidate is rejected",
-    body: "The moment you reject someone in your ATS, Cushion catches the event, no change to your hiring workflow.",
+    title: "An applicant applies",
+    body: "Cushion invites them to opt in to exclusive rewards, separate from their application.",
   },
   {
     n: "03",
-    title: "Reward & track",
-    body: "Cushion auto-sends the on-brand rejection and reward, then reports the % of rejected applicants who bought.",
+    title: "Rewards from day one",
+    body: "Opted-in applicants get access to partner offers and brand rewards straight away.",
+  },
+  {
+    n: "04",
+    title: "If it doesn't work out",
+    body: "Cushion sends an additional thank-you and reward alongside your own rejection email. It never replaces it.",
+  },
+  {
+    n: "05",
+    title: "Growth gets the numbers",
+    body: "Reporting on redemptions and purchases from applicants.",
+  },
+];
+
+const REWARDS = [
+  {
+    icon: Coffee,
+    title: "Partner offers",
+    body: "Perks funded by our partners, not by your budget. Something as simple as a coffee, or a day out with the family.",
+    lead: true,
+  },
+  {
+    icon: Ticket,
+    title: "Brand discounts",
+    body: "Exclusive discounts on your own products, set and controlled by you.",
+  },
+];
+
+const CONSENT = [
+  {
+    icon: FileText,
+    title: "Opt-in at application",
+    body: "The choice sits separate from the application itself.",
+  },
+  {
+    icon: Check,
+    title: "Always optional",
+    body: "It never affects the application or the hiring decision.",
+  },
+  {
+    icon: Eye,
+    title: "Easy opt-out",
+    body: "Every message has a visible way to stop.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Full audit trail",
+    body: "We provide our DPA and a template DPIA.",
+  },
+];
+
+const FEATURES = [
+  {
+    icon: Plug,
+    title: "Plugs into your ATS",
+    body: "Connect TeamTailor, Greenhouse, Lever or Workable in minutes. Roles and applicants sync automatically. Nothing to rip out.",
+  },
+  {
+    icon: Gift,
+    title: "Reward engine",
+    body: "Attach partner offers and brand discounts. Set the terms. Trackable per applicant.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Consent built in",
+    body: "Opt-in at application, a visible opt-out on every message, and a full audit trail.",
+  },
+  {
+    icon: Wand2,
+    title: "Message builder",
+    body: "Personalise what Cushion sends by name, role and stage. Set the tone. Add a hiring-manager video.",
+  },
+  {
+    icon: BarChart3,
+    title: "Advocacy tracking",
+    body: "Opens, redemptions, shares, and whether applicants go on to buy.",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Brand reporting",
+    body: "A monthly growth and CRM report: applicants, rewards redeemed, purchases.",
   },
 ];
 
@@ -97,20 +151,20 @@ const PLANS = [
 
 const FAQ = [
   {
-    q: "Is putting an offer inside a rejection email even legal?",
-    a: "A rejection is a service message; a promotional reward is marketing, which under UK GDPR and PECR needs a lawful basis and a clear opt-out. Cushion is designed to support that, consent captured at the point of application, a visible opt-out on every message, and a full audit trail of what was sent to whom. Confirm the approach with your own counsel; we'll provide our DPA and a template DPIA to make that quick.",
+    q: "Is it legal to offer applicants rewards?",
+    a: "The reward is marketing, so under UK GDPR and PECR it needs a lawful basis and a clear opt-out. Cushion is built around that. Consent is captured at the point of application, separate from the application itself. Every message has a visible opt-out, and there's a full audit trail of what was sent to whom. This isn't legal advice. Confirm the approach with your own counsel. We'll provide our DPA and a template DPIA to make that quick.",
   },
   {
     q: "What happens to our margin if lots of people redeem?",
-    a: "You set the reward and its terms, a fixed-value voucher, a capped discount, or a free product with conditions. Your worst case is redemptions × your reward cost, and it only ever fires on people you'd otherwise have lost. Model it with the calculator above before you commit a penny.",
+    a: "You set each reward and its terms: a fixed-value voucher, a capped discount, or a free product with conditions. Partner offers are funded by partners, not by you. Your worst case is redemptions times your reward cost. Model it with the calculator above before you commit a penny.",
   },
   {
-    q: "Doesn't “sorry, here's 20% off” read as insulting?",
-    a: "Done badly, yes. So the message leads with a genuine, human thank-you and the reward sits underneath it, never as the headline. You set the tone per stage, warmer and more personal the further someone got, so a final-round candidate never gets the same note as a day-one applicant.",
+    q: "Won't applicants see through it?",
+    a: "Only if it's an afterthought. So the reward comes with a genuine thank-you, at application and again if they're not successful. You set the tone per stage, warmer the further someone got. A final-round candidate never gets the same note as a day-one applicant.",
   },
   {
     q: "What stops the codes ending up on a voucher site?",
-    a: "Every code is unique to the applicant and single-use, tied to the email address we sent it to, with an expiry and an optional cap you control. A leaked code redeems once, for one person, it's worthless to a deal-scraping site.",
+    a: "Every code is unique to the applicant and single-use, tied to the email address we sent it to, with an expiry and an optional cap you control. A leaked code redeems once, for one person. It's worthless to a deal-scraping site.",
   },
 ];
 
@@ -152,17 +206,16 @@ export default function HomePage() {
               An advocacy layer on top of your ATS
             </span>
             <h1 className="mt-6 text-4xl font-bold leading-tight sm:text-6xl">
-              You reject thousands of people who{" "}
-              <span className="text-primary">wanted to work for you.</span>
+              The people who apply to work for you are your{" "}
+              <span className="text-primary">best advocates.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg text-slate-300">
-              Then you send a template that makes them like you less. Cushion
-              plugs into your ATS and turns each rejection into a warm, on-brand
-              note with a real reward, so the people who chose your brand stay
-              customers instead of walking away.
+              Cushion gives every applicant access to exclusive rewards from the
+              moment they apply. Whether they get the job or not.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
               <span className="text-xs uppercase tracking-wider">Works with</span>
+              <span className="font-semibold text-slate-200">TeamTailor</span>
               <span className="font-semibold text-slate-200">Greenhouse</span>
               <span className="font-semibold text-slate-200">Lever</span>
               <span className="font-semibold text-slate-200">Workable</span>
@@ -187,37 +240,45 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* The artifact, show the real product */}
-      <section className="border-b bg-card">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold text-foreground">
-              This is what your rejected applicants get
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              A real send from the builder, in your livery, not a generic
-              &ldquo;unfortunately&rdquo; template. Same product, three brands.
-            </p>
-          </div>
-          <div className="mt-12">
-            <EmailShowcase />
-          </div>
+      {/* Statement band */}
+      <section className="border-b border-white/10 bg-sidebar text-white">
+        <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6">
+          <p className="text-2xl font-bold leading-snug sm:text-4xl">
+            Those who love your business want to work for you.{" "}
+            <span className="text-primary">The majority never will.</span>
+          </p>
+          <p className="mx-auto mt-5 max-w-xl text-slate-300">
+            Cushion makes sure they still walk away with something.
+          </p>
         </div>
       </section>
 
-      {/* Calculator, the number is theirs, not ours */}
-      <section className="border-b border-white/10 bg-sidebar">
-        <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-          <div className="mx-auto mb-8 max-w-2xl text-center">
-            <h2 className="text-2xl font-bold text-white sm:text-3xl">
-              Put your own numbers in
-            </h2>
-            <p className="mt-3 text-slate-300">
-              Skip the invented averages. Enter what you actually see and decide
-              for yourself whether the rejected audience is worth keeping.
-            </p>
-          </div>
-          <RejectionCalculator />
+      {/* The effort of job hunting */}
+      <section className="border-b bg-card">
+        <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
+          <h2 className="text-3xl font-bold text-foreground">
+            Job hunting is hard work.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+            The average UK job seeker sends 162 applications and takes 3.8 months
+            to land a role. Every one is real effort, often for a brand they
+            already care about.
+          </p>
+          <p className="mt-3 text-xs text-muted-foreground">
+            Source:{" "}
+            <a
+              href={STAT_SOURCE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-foreground underline underline-offset-2 hover:text-primary"
+            >
+              StandOut CV UK survey
+            </a>
+          </p>
+          <p className="mt-10 text-2xl font-bold text-foreground sm:text-3xl">
+            Be the brand that buys them a{" "}
+            <span className="text-primary">coffee.</span>
+          </p>
         </div>
       </section>
 
@@ -226,10 +287,10 @@ export default function HomePage() {
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-foreground">How it works</h2>
           <p className="mt-3 text-muted-foreground">
-            A CRM and growth tool disguised as an HR nicety.
+            Five steps. Your hiring process stays exactly as it is.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((s) => (
             <div key={s.n} className="rounded-2xl border bg-card p-6">
               <p className="font-display text-3xl font-bold text-primary">
@@ -244,15 +305,94 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Rewards */}
+      <section className="bg-secondary/50">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold text-foreground">
+              Two kinds of reward
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              Applicants get access the moment they opt in.
+            </p>
+          </div>
+          <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
+            {REWARDS.map((r) => (
+              <div
+                key={r.title}
+                className={
+                  "rounded-2xl border bg-card p-6 " +
+                  (r.lead ? "ring-2 ring-primary" : "")
+                }
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <r.icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 text-lg font-semibold text-foreground">
+                  {r.title}
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">{r.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The message Cushion sends */}
+      <section className="border-b bg-card">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold text-foreground">
+              The message Cushion sends
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              In your brand&rsquo;s livery, alongside your own emails. One when
+              they apply, one if it doesn&rsquo;t work out. Cushion never sends
+              your rejection for you.
+            </p>
+          </div>
+          <div className="mt-12">
+            <EmailShowcase />
+          </div>
+        </div>
+      </section>
+
+      {/* Consent is a feature */}
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold text-foreground">
+            Consent is a feature, not small print.
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            Applicants choose to take part. It never affects their application.
+          </p>
+        </div>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {CONSENT.map((c) => (
+            <div key={c.title} className="rounded-2xl border bg-card p-6">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <c.icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 font-semibold text-foreground">{c.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{c.body}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-muted-foreground">
+          Cushion is built around UK GDPR and PECR. This isn&rsquo;t legal
+          advice. Confirm the approach with your own counsel.
+        </p>
+      </section>
+
       {/* Features */}
       <section className="bg-secondary/50">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold text-foreground">
-              Everything to reject well
+              Everything you need to run it
             </h2>
             <p className="mt-3 text-muted-foreground">
-              From intake to advocacy reporting, in one place.
+              From opt-in to reporting, in one place.
             </p>
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -276,7 +416,7 @@ export default function HomePage() {
             One product, two teams
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Talent owns the ATS. Growth owns the reward budget and the metric.
+            Talent owns the ATS. Growth owns the reward budget and the reporting.
             Cushion is the handshake between them.
           </p>
         </div>
@@ -289,9 +429,9 @@ export default function HomePage() {
               Installs once, then forgets about it
             </h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Connect Greenhouse, Lever or Workable in minutes. Nothing changes
-              about how you hire, when you reject someone in your ATS, Cushion
-              handles the rest automatically.
+              Connect TeamTailor, Greenhouse, Lever or Workable in minutes.
+              Nothing changes about how you hire. Cushion handles the opt-in and
+              the rewards.
             </p>
             <Button asChild variant="outline" className="mt-5">
               <a href="/login">See the integration</a>
@@ -302,17 +442,32 @@ export default function HomePage() {
               Growth / CRM
             </span>
             <h3 className="mt-3 text-lg font-semibold text-foreground">
-              Owns the reward, and the number
+              Owns the reward, and the reporting
             </h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Set the reward and the tone. Then report the one metric that
-              matters to finance: the share of rejected applicants who went on to
-              buy.
+              Set the rewards and the tone. Then see what applicant advocacy is
+              worth: redemptions and purchases from applicants.
             </p>
             <Button asChild className="mt-5">
               <a href="/login">See the reporting</a>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Calculator, the number is theirs, not ours */}
+      <section className="border-y border-white/10 bg-sidebar">
+        <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+          <div className="mx-auto mb-8 max-w-2xl text-center">
+            <h2 className="text-2xl font-bold text-white sm:text-3xl">
+              Put your own numbers in
+            </h2>
+            <p className="mt-3 text-slate-300">
+              Skip the invented averages. Enter what you actually see and
+              estimate what your applicant audience is worth.
+            </p>
+          </div>
+          <RejectionCalculator />
         </div>
       </section>
 
@@ -426,11 +581,11 @@ export default function HomePage() {
       <section className="bg-sidebar">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
           <h2 className="text-3xl font-bold text-white">
-            What percentage of your rejected applicants became customers?
+            Your applicants already chose you.
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-slate-300">
-            If you don&rsquo;t know, you&rsquo;re leaving your warmest audience
-            on the table. Let&rsquo;s fix that.
+            Recognise that from the moment they apply, whatever the outcome. Then
+            see what it&rsquo;s worth.
           </p>
           <Button asChild size="lg" className="mt-8">
             <a href="#waitlist">
@@ -443,7 +598,7 @@ export default function HomePage() {
 
       <footer className="border-t bg-background py-8">
         <div className="mx-auto max-w-6xl px-4 text-center text-sm text-muted-foreground sm:px-6">
-          © 2026 Cushion, turn rejection into advocacy.
+          © 2026 Cushion. Applicant advocacy for consumer brands.
         </div>
       </footer>
     </div>

@@ -8,8 +8,10 @@ import type {
 } from "@/lib/types";
 import type { RenderContext } from "@/lib/format";
 
-// "Show the artifact." Three real rejection emails in three brand liveries,
-// rendered by the same component the product uses, not a mockup.
+// "Show the artifact." The additional message Cushion sends, in three brand
+// liveries, rendered by the same component the product uses, not a mockup. One
+// at the point of application, two after an unsuccessful outcome. Cushion sends
+// this alongside the brand's own emails; it never sends the rejection itself.
 interface Sample {
   color: string;
   brand: BrandSettings;
@@ -41,9 +43,9 @@ const SAMPLES: Sample[] = [
     template: {
       stage: "applied",
       enabled: true,
-      subject: "Thank you, {{firstname}}",
-      heading: "Thank you, {{firstname}}",
-      body: "We loved that you wanted to pull shots with us. We had a huge response to the {{role}} role and won't be moving forward this time.\n\nYou chose us, so here's a coffee on the house next time you're in.",
+      subject: "Thanks for applying, {{firstname}}",
+      heading: "Thanks for applying, {{firstname}}",
+      body: "You applied to be our {{role}}, and we're glad you did. As a thank you, here's a coffee on us.\n\nWhatever happens next, you've got access to a few perks from us and our partners.",
       signoff: "Warmly,\nThe {{company}} team",
       tone: "warm",
       rewardId: "r1",
@@ -69,9 +71,9 @@ const SAMPLES: Sample[] = [
     template: {
       stage: "interview",
       enabled: true,
-      subject: "It was great to meet you, {{firstname}}",
-      heading: "So close, {{firstname}}",
-      body: "Thanks for interviewing for the {{role}} role, you were up against a strong field and we've gone another way this time.\n\nKeep training with us. Here's three months of membership on the house.",
+      subject: "A thank you from {{company}}",
+      heading: "Thanks for going for it, {{firstname}}",
+      body: "You interviewed for the {{role}} role. It didn't work out this time, and you'll have heard that from our team already.\n\nThis is just us saying thank you. Here's three months of membership on us.",
       signoff: "Onwards,\n{{company}}",
       tone: "aspirational",
       rewardId: "r2",
@@ -97,9 +99,9 @@ const SAMPLES: Sample[] = [
     template: {
       stage: "final",
       enabled: true,
-      subject: "A personal note from {{company}}",
-      heading: "You were right there with us",
-      body: "Reaching the final stage for the {{role}} role is no small thing, and this was a close call. We've made a different decision this time.\n\nWe'd love to keep you close. Enjoy 25% off the new collection.",
+      subject: "A note from {{company}}",
+      heading: "You were close, {{firstname}}",
+      body: "Reaching the final stage for the {{role}} role is no small thing. Our team have already been in touch about the decision.\n\nWe wanted to add our own thank you. Enjoy 25% off the new collection.",
       signoff: "Personally,\nThe {{company}} team",
       tone: "professional",
       rewardId: "r3",

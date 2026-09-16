@@ -110,15 +110,16 @@ export default function Login() {
             Applicant advocacy, on top of your ATS
           </p>
           <p className="mt-2 max-w-md text-4xl font-bold leading-tight">
-            Keep the people who chose your brand.
+            The people who apply are your best advocates.
           </p>
           <p className="mt-4 max-w-md text-slate-300">
-            When you reject a candidate in your ATS, Cushion sends a warm,
-            on-brand note with a real reward, then reports how many go on to
-            buy. Everything here runs on seeded demo data.
+            From the moment someone applies, Cushion gives them access to
+            exclusive rewards. If they're not successful, it adds a thank-you and
+            a reward alongside your own rejection email. Everything here runs on
+            seeded demo data.
           </p>
           <ul className="mt-8 space-y-2 text-sm text-slate-300">
-            <li>Plugs into Greenhouse, Lever and Workable</li>
+            <li>Plugs into TeamTailor, Greenhouse, Lever and Workable</li>
             <li>You set the reward, the tone and the terms</li>
             <li>Reporting built for growth, not just HR</li>
           </ul>

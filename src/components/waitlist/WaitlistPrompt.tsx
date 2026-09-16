@@ -47,11 +47,11 @@ export function WaitlistPrompt({ delayMs = 3500 }: { delayMs?: number }) {
             <Sparkles className="h-5 w-5" />
           </span>
           <DialogTitle className="text-xl">
-            Be first to reject well
+            Reward your applicants from day one
           </DialogTitle>
           <DialogDescription>
             Cushion is rolling out to consumer brands now. Join the waitlist for
-            early access and start keeping the applicants you reject.
+            early access.
           </DialogDescription>
         </DialogHeader>
         <div className="pt-1">
