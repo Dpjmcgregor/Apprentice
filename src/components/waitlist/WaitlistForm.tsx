@@ -109,13 +109,19 @@ export function WaitlistForm({
           autoFocus={autoFocus}
           placeholder="you@yourbrand.com"
           value={form.email}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? "wl-email-error" : undefined}
           onChange={(e) => {
             setForm({ ...form, email: e.target.value });
             if (error) setError("");
           }}
         />
       </div>
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && (
+        <p id="wl-email-error" role="alert" className="text-sm text-destructive">
+          {error}
+        </p>
+      )}
       <Button type="submit" className="w-full">
         Join the waitlist
         <ArrowRight className="h-4 w-4" />

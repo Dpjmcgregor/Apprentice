@@ -21,6 +21,7 @@ import { WaitlistPrompt } from "@/components/waitlist/WaitlistPrompt";
 import { WaitlistCount } from "@/components/waitlist/WaitlistCount";
 import { RejectionCalculator } from "@/components/RejectionCalculator";
 import { BrandExample } from "@/components/BrandExample";
+import { FaqAccordion } from "@/components/FaqAccordion";
 
 // This is a Server Component. Every piece of marketing copy below is rendered
 // to static HTML in the initial response; only the genuinely interactive parts
@@ -465,15 +466,8 @@ export default function HomePage() {
               shouldn&rsquo;t sign.
             </p>
           </div>
-          <div className="mt-10 space-y-4">
-            {FAQ.map((f) => (
-              <Card key={f.q} className="p-6">
-                <h3 className="font-semibold text-foreground">{f.q}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {f.a}
-                </p>
-              </Card>
-            ))}
+          <div className="mt-10">
+            <FaqAccordion items={FAQ} />
           </div>
           <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-muted-foreground">
             This isn&rsquo;t legal advice. We&rsquo;ll share our DPA and a
