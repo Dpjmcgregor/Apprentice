@@ -50,7 +50,7 @@ export function WaitlistPrompt({ delayMs = 3500 }: { delayMs?: number }) {
             Reward your applicants from day one
           </DialogTitle>
           <DialogDescription>
-            Cushion is rolling out to consumer brands now. Join the waitlist for
+            Cushion is rolling out to businesses now. Join the waitlist for
             early access.
           </DialogDescription>
         </DialogHeader>

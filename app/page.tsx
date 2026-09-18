@@ -63,14 +63,14 @@ const STEPS = [
 const REWARDS = [
   {
     icon: Coffee,
-    title: "Partner offers",
-    body: "Perks funded by our partners, not by your budget. Something as simple as a coffee, or a day out with the family.",
+    title: "Network rewards",
+    body: "Real perks, a coffee or a day out with the family, funded by our partner network rather than your budget. Any business can offer them.",
     lead: true,
   },
   {
     icon: Ticket,
-    title: "Brand discounts",
-    body: "Exclusive discounts on your own products, set and controlled by you.",
+    title: "Your own rewards",
+    body: "If you sell something, add exclusive discounts on your own products, set and controlled by you. Optional.",
   },
 ];
 
@@ -106,7 +106,7 @@ const FEATURES = [
   {
     icon: Gift,
     title: "Reward engine",
-    body: "Attach partner offers and brand discounts. Set the terms. Trackable per applicant.",
+    body: "Attach network partner offers and, if you have them, your own discounts. Set the terms. Trackable per applicant.",
   },
   {
     icon: ShieldCheck,
@@ -159,7 +159,7 @@ const FAQ = [
   },
   {
     q: "What happens to our margin if lots of people redeem?",
-    a: "You set each reward and its terms: a fixed-value voucher, a capped discount, or a free product with conditions. Partner offers are funded by partners, not by you. Your worst case is redemptions times your reward cost. Model it with the calculator above before you commit a penny.",
+    a: "You set each reward and its terms: a fixed-value voucher, a capped discount, or a free product with conditions. Most rewards come from the partner network, funded by them, not you, so you can run this even with no product of your own. Your worst case is redemptions times your reward cost. Model it with the calculator above before you commit a penny.",
   },
   {
     q: "Won't applicants see through it?",
@@ -224,7 +224,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-              Applicant advocacy for consumer brands
+              Applicant advocacy for every business
             </span>
             <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-6xl sm:leading-[1.05]">
               The people who apply to work for you are your best advocates.
@@ -279,8 +279,8 @@ export default function HomePage() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
             The average UK job seeker sends 162 applications and takes 3.8 months
-            to land a role. Every one is real effort, often for a brand they
-            already care about.
+            to land a role. Every one is real effort, often for a business they
+            already admire.
           </p>
           <p className="mt-3 text-xs text-muted-foreground">
             Source:{" "}
@@ -294,7 +294,7 @@ export default function HomePage() {
             </a>
           </p>
           <p className="mt-10 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Be the brand that buys them a{" "}
+            Be the business that buys them a{" "}
             <span className="text-brand">coffee.</span>
           </p>
         </div>
@@ -340,7 +340,8 @@ export default function HomePage() {
               Two kinds of reward
             </h2>
             <p className="mt-3 text-muted-foreground">
-              Applicants get access the moment they opt in.
+              Applicants get access the moment they opt in. Rewards are pooled
+              across the network, so every business has something to give.
             </p>
           </div>
           <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
@@ -568,7 +569,7 @@ export default function HomePage() {
               Join the waitlist
             </h2>
             <p className="mt-3 text-muted-foreground">
-              We&rsquo;re onboarding consumer brands in waves. Add your details
+              We&rsquo;re onboarding businesses in waves. Add your details
               and we&rsquo;ll reach out with early access to Cushion.
             </p>
           </div>
@@ -611,7 +612,7 @@ export default function HomePage() {
                 </span>
               </div>
               <p className="mt-4 text-sm text-sidebar-foreground">
-                Applicant advocacy for consumer brands. Reward the people who
+                Applicant advocacy for every business. Reward the people who
                 apply, whatever the outcome.
               </p>
             </div>
@@ -663,7 +664,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="mt-12 border-t border-sidebar-border pt-6 text-xs text-sidebar-muted">
-            © 2026 Cushion. Applicant advocacy for consumer brands.
+            © 2026 Cushion. Applicant advocacy for every business.
           </div>
         </div>
       </footer>
