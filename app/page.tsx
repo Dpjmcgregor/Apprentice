@@ -21,6 +21,8 @@ import { WaitlistPrompt } from "@/components/waitlist/WaitlistPrompt";
 import { WaitlistCount } from "@/components/waitlist/WaitlistCount";
 import { RejectionCalculator } from "@/components/RejectionCalculator";
 import { BrandExample } from "@/components/BrandExample";
+import { HeroProduct } from "@/components/HeroProduct";
+import { FaqAccordion } from "@/components/FaqAccordion";
 
 // This is a Server Component. Every piece of marketing copy below is rendered
 // to static HTML in the initial response; only the genuinely interactive parts
@@ -175,52 +177,62 @@ export default function HomePage() {
       <WaitlistPrompt />
 
       {/* Nav */}
-      <header className="sticky top-0 z-30 border-b bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-          <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+      <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <Sparkles className="h-4 w-4" />
             </span>
-            <span className="font-semibold text-foreground">Cushion</span>
+            <span className="text-[15px] font-semibold tracking-tight text-foreground">
+              Cushion
+            </span>
           </div>
+          <nav className="hidden items-center gap-7 md:flex">
+            <a
+              href="#how"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              How it works
+            </a>
+            <a
+              href="#pricing"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Pricing
+            </a>
+            <a
+              href="/login"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Demo
+            </a>
+          </nav>
           <div className="flex items-center gap-2">
-            <Button asChild variant="ghost">
-              <a href="/login">Sign in</a>
+            <Button asChild variant="ghost" size="sm">
+              <a href="/login">Log in</a>
             </Button>
-            <Button asChild>
-              <a href="/login">
-                View live demo
-                <ArrowRight className="h-4 w-4" />
-              </a>
+            <Button asChild size="sm">
+              <a href="#waitlist">Join waitlist</a>
             </Button>
           </div>
         </div>
       </header>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-sidebar text-white">
-        <div className="absolute inset-0 bg-grid opacity-30" />
-        <div className="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:py-32">
+      <section className="border-b border-border bg-background">
+        <div className="mx-auto max-w-6xl px-4 pb-16 pt-20 sm:px-6 lg:pb-24 lg:pt-28">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-slate-200">
-              <Plug className="h-3 w-3 text-primary" />
-              An advocacy layer on top of your ATS
+            <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+              Applicant advocacy for consumer brands
             </span>
-            <h1 className="mt-6 text-4xl font-bold leading-tight sm:text-6xl">
-              The people who apply to work for you are your{" "}
-              <span className="text-primary">best advocates.</span>
+            <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-6xl sm:leading-[1.05]">
+              The people who apply to work for you are your best advocates.
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-lg text-slate-300">
+            <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
               Cushion gives every applicant access to exclusive rewards from the
               moment they apply. Whether they get the job or not.
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
-              <span className="text-xs uppercase tracking-wider">Works with</span>
-              <span className="font-semibold text-slate-200">TeamTailor</span>
-              <span className="font-semibold text-slate-200">Greenhouse</span>
-              <span className="font-semibold text-slate-200">Lever</span>
-              <span className="font-semibold text-slate-200">Workable</span>
-            </div>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg">
                 <a href="#waitlist">
@@ -228,27 +240,32 @@ export default function HomePage() {
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
-              >
+              <Button asChild size="lg" variant="outline">
                 <a href="/login">Explore the demo</a>
               </Button>
             </div>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs text-muted-foreground">
+              <span className="uppercase tracking-wider">Works with</span>
+              <span className="font-medium text-foreground">TeamTailor</span>
+              <span className="font-medium text-foreground">Greenhouse</span>
+              <span className="font-medium text-foreground">Lever</span>
+              <span className="font-medium text-foreground">Workable</span>
+            </div>
+          </div>
+          <div className="mx-auto mt-16 max-w-4xl">
+            <HeroProduct />
           </div>
         </div>
       </section>
 
       {/* Statement band */}
-      <section className="border-b border-white/10 bg-sidebar text-white">
-        <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6">
-          <p className="text-2xl font-bold leading-snug sm:text-4xl">
-            Those who love your business want to work for you.{" "}
-            <span className="text-primary">The majority never will.</span>
+      <section className="border-b border-border bg-muted/40">
+        <div className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6">
+          <p className="text-2xl font-bold tracking-tight text-foreground sm:text-4xl sm:leading-tight">
+            Those who love your business want to work for you. The majority never
+            will.
           </p>
-          <p className="mx-auto mt-5 max-w-xl text-slate-300">
+          <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
             Cushion makes sure they still walk away with something.
           </p>
         </div>
@@ -276,33 +293,42 @@ export default function HomePage() {
               StandOut CV UK survey
             </a>
           </p>
-          <p className="mt-10 text-2xl font-bold text-foreground sm:text-3xl">
+          <p className="mt-10 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             Be the brand that buys them a{" "}
-            <span className="text-primary">coffee.</span>
+            <span className="text-brand">coffee.</span>
           </p>
         </div>
       </section>
 
       {/* How it works */}
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-foreground">How it works</h2>
-          <p className="mt-3 text-muted-foreground">
-            Five steps. Your hiring process stays exactly as it is.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {STEPS.map((s) => (
-            <Card key={s.n} className="p-6">
-              <p className="font-display text-3xl font-bold text-primary">
-                {s.n}
-              </p>
-              <h3 className="mt-3 text-lg font-semibold text-foreground">
-                {s.title}
-              </h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
-            </Card>
-          ))}
+      <section id="how" className="scroll-mt-16 border-b border-border">
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+          <div className="max-w-2xl">
+            <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+              The process
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground">
+              How it works
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              Five steps. Your hiring process stays exactly as it is.
+            </p>
+          </div>
+          <ol className="mt-16 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-5">
+            {STEPS.map((s) => (
+              <li key={s.n} className="border-t border-border pt-5">
+                <span className="text-3xl font-semibold tabular-nums tracking-tight text-muted-foreground/50">
+                  {s.n}
+                </span>
+                <h3 className="mt-4 text-base font-semibold text-foreground">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {s.body}
+                </p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -321,9 +347,9 @@ export default function HomePage() {
             {REWARDS.map((r) => (
               <Card
                 key={r.title}
-                className={"p-6 " + (r.lead ? "ring-2 ring-primary" : "")}
+                className={"p-6 " + (r.lead ? "ring-1 ring-brand/40" : "")}
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-foreground">
                   <r.icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 text-lg font-semibold text-foreground">
@@ -356,7 +382,7 @@ export default function HomePage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {CONSENT.map((c) => (
             <Card key={c.title} className="p-6">
-              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-foreground">
                 <c.icon className="h-5 w-5" />
               </span>
               <h3 className="mt-4 font-semibold text-foreground">{c.title}</h3>
@@ -384,7 +410,7 @@ export default function HomePage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((f) => (
               <Card key={f.title} className="p-6">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-foreground">
                   <f.icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 font-semibold text-foreground">{f.title}</h3>
@@ -438,13 +464,13 @@ export default function HomePage() {
       </section>
 
       {/* Calculator, the number is theirs, not ours */}
-      <section className="border-y border-white/10 bg-sidebar">
-        <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-          <div className="mx-auto mb-8 max-w-2xl text-center">
-            <h2 className="text-2xl font-bold text-white sm:text-3xl">
+      <section className="border-b border-border bg-background">
+        <div className="mx-auto max-w-4xl px-4 py-24 sm:px-6">
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
               Put your own numbers in
             </h2>
-            <p className="mt-3 text-slate-300">
+            <p className="mt-3 text-muted-foreground">
               Skip the invented averages. Enter what you actually see and
               estimate what your applicant audience is worth.
             </p>
@@ -465,15 +491,8 @@ export default function HomePage() {
               shouldn&rsquo;t sign.
             </p>
           </div>
-          <div className="mt-10 space-y-4">
-            {FAQ.map((f) => (
-              <Card key={f.q} className="p-6">
-                <h3 className="font-semibold text-foreground">{f.q}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {f.a}
-                </p>
-              </Card>
-            ))}
+          <div className="mt-10">
+            <FaqAccordion items={FAQ} />
           </div>
           <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-muted-foreground">
             This isn&rsquo;t legal advice. We&rsquo;ll share our DPA and a
@@ -483,9 +502,9 @@ export default function HomePage() {
       </section>
 
       {/* Pricing */}
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section id="pricing" className="mx-auto max-w-6xl scroll-mt-16 px-4 py-24 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-foreground">
+          <h2 className="text-3xl font-bold tracking-tight text-foreground">
             Priced per applicant, banded by volume
           </h2>
           <p className="mt-3 text-muted-foreground">
@@ -499,16 +518,14 @@ export default function HomePage() {
             <div
               key={p.name}
               className={
-                "flex flex-col rounded-2xl border bg-card p-6 " +
-                (p.featured ? "ring-2 ring-primary" : "")
+                "flex flex-col rounded-xl border bg-card p-6 " +
+                (p.featured ? "ring-1 ring-brand/50" : "")
               }
             >
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold text-foreground">{p.name}</h3>
                 {p.featured && (
-                  <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                    Most popular
-                  </span>
+                  <Badge variant="brand">Most popular</Badge>
                 )}
               </div>
               <p className="mt-4 text-3xl font-bold text-foreground">{p.band}</p>
@@ -563,12 +580,12 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-sidebar">
-        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
-          <h2 className="text-3xl font-bold text-white">
+      <section className="border-t border-border bg-muted/40">
+        <div className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6">
+          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Your applicants already chose you.
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-slate-300">
+          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
             Recognise that from the moment they apply, whatever the outcome. Then
             see what it&rsquo;s worth.
           </p>
@@ -581,9 +598,73 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="border-t bg-background py-8">
-        <div className="mx-auto max-w-6xl px-4 text-center text-sm text-muted-foreground sm:px-6">
-          © 2026 Cushion. Applicant advocacy for consumer brands.
+      <footer className="bg-sidebar text-sidebar-foreground">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="flex flex-col justify-between gap-10 md:flex-row">
+            <div className="max-w-xs">
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-background text-foreground">
+                  <Sparkles className="h-4 w-4" />
+                </span>
+                <span className="text-[15px] font-semibold tracking-tight text-background">
+                  Cushion
+                </span>
+              </div>
+              <p className="mt-4 text-sm text-sidebar-foreground">
+                Applicant advocacy for consumer brands. Reward the people who
+                apply, whatever the outcome.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wider text-sidebar-muted">
+                  Product
+                </p>
+                <ul className="mt-3 space-y-2 text-sm">
+                  <li>
+                    <a href="#how" className="transition-colors hover:text-background">
+                      How it works
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#pricing" className="transition-colors hover:text-background">
+                      Pricing
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/login" className="transition-colors hover:text-background">
+                      Demo
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wider text-sidebar-muted">
+                  Company
+                </p>
+                <ul className="mt-3 space-y-2 text-sm">
+                  <li>
+                    <a href="#waitlist" className="transition-colors hover:text-background">
+                      Waitlist
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wider text-sidebar-muted">
+                  Legal
+                </p>
+                <ul className="mt-3 space-y-2 text-sm">
+                  <li>
+                    <span className="text-sidebar-muted">Built around UK GDPR and PECR</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 border-t border-sidebar-border pt-6 text-xs text-sidebar-muted">
+            © 2026 Cushion. Applicant advocacy for consumer brands.
+          </div>
         </div>
       </footer>
     </div>

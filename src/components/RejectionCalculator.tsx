@@ -19,7 +19,7 @@ export function RejectionCalculator() {
   }, [applicants, rejectRate, redemption, aov]);
 
   return (
-    <div className="grid gap-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6 lg:grid-cols-2">
+    <div className="grid gap-6 rounded-xl border border-border bg-card p-5 shadow-soft sm:p-6 lg:grid-cols-2">
       {/* Inputs */}
       <div className="space-y-4">
         <NumberField
@@ -71,7 +71,7 @@ export function RejectionCalculator() {
           value={formatCurrency(revenue)}
           accent
         />
-        <p className="mt-1 text-xs text-slate-400">
+        <p className="mt-1 text-xs text-muted-foreground">
           An estimate from your own inputs, not an industry average. Nothing is
           sent anywhere.
         </p>
@@ -97,11 +97,11 @@ function NumberField({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-medium text-slate-200">
+      <span className="mb-1.5 block text-sm font-medium text-foreground">
         {label}
       </span>
-      <div className="flex items-center rounded-lg border border-white/15 bg-white/5 px-3 focus-within:border-primary">
-        {prefix && <span className="text-slate-400">{prefix}</span>}
+      <div className="flex items-center rounded-lg border border-input bg-background px-3 focus-within:border-ring">
+        {prefix && <span className="text-muted-foreground">{prefix}</span>}
         <input
           type="number"
           inputMode="numeric"
@@ -109,7 +109,7 @@ function NumberField({
           step={step}
           value={value}
           onChange={(e) => onChange(Math.max(min ?? 0, Number(e.target.value) || 0))}
-          className="w-full bg-transparent py-2.5 text-white outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+          className="w-full bg-transparent py-2.5 text-foreground outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
         />
       </div>
     </label>
@@ -135,9 +135,9 @@ function RangeField({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 flex items-center justify-between text-sm font-medium text-slate-200">
+      <span className="mb-1 flex items-center justify-between text-sm font-medium text-foreground">
         {label}
-        <span className="tabular-nums text-primary">
+        <span className="tabular-nums text-brand">
           {value}
           {suffix}
         </span>
@@ -150,7 +150,9 @@ function RangeField({
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full accent-primary"
       />
-      {hint && <span className="mt-1 block text-xs text-slate-400">{hint}</span>}
+      {hint && (
+        <span className="mt-1 block text-xs text-muted-foreground">{hint}</span>
+      )}
     </label>
   );
 }
@@ -168,15 +170,14 @@ function Output({
     <div
       className={
         "rounded-xl border px-4 py-3 " +
-        (accent
-          ? "border-primary/40 bg-primary/10"
-          : "border-white/10 bg-white/[0.03]")
+        (accent ? "border-brand/40 bg-brand/10" : "border-border bg-secondary/50")
       }
     >
-      <p className="text-xs text-slate-400">{label}</p>
+      <p className="text-xs text-muted-foreground">{label}</p>
       <p
         className={
-          "mt-0.5 text-2xl font-bold " + (accent ? "text-primary" : "text-white")
+          "mt-0.5 text-2xl font-bold " +
+          (accent ? "text-brand" : "text-foreground")
         }
       >
         {value}

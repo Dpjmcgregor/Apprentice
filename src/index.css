@@ -4,66 +4,71 @@
 
 @layer base {
   :root {
-    /* Cushion "Cutting Edge Warm" brand book: warm cream surfaces, plum-ink
-       dark sidebar, terracotta accent, sage/mint/lavender supporting hues. */
-    --background: 34 50% 95%; /* warm cream #F8F2EA */
-    --foreground: 266 29% 9%; /* plum ink #17111F */
+    /* Cushion design system: neutral-first (Zinc) with a single restrained
+       orange brand accent. Colours are HSL channel triplets, consumed via
+       hsl(var(--token)) in tailwind.config so opacity modifiers keep working.
+       Aim: ~85-90% neutral, orange used sparingly for brand moments. */
+
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 240 10% 3.9%; /* zinc-950 #09090B */
 
     --card: 0 0% 100%;
-    --card-foreground: 266 29% 9%;
+    --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 266 29% 9%;
+    --popover-foreground: 240 10% 3.9%;
 
-    /* Brand primary — terracotta; overridden at runtime from brand settings. */
-    --primary: 17 52% 48%; /* terracotta #B95F3B */
-    --primary-foreground: 0 0% 100%;
+    /* Primary is near-black (shadcn zinc), for solid buttons and emphasis. */
+    --primary: 240 5.9% 10%; /* zinc-900 #18181B */
+    --primary-foreground: 0 0% 98%; /* #FAFAFA */
 
-    --secondary: 35 39% 89%; /* cream #EEE5D8 */
-    --secondary-foreground: 266 25% 14%;
+    --secondary: 240 4.8% 95.9%; /* zinc-100 #F4F4F5 */
+    --secondary-foreground: 240 5.9% 10%;
 
-    --muted: 36 38% 90%;
-    --muted-foreground: 275 8% 40%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%; /* zinc-500 #71717A */
 
-    --accent: 22 53% 90%; /* warm peach tint */
-    --accent-foreground: 16 56% 39%;
+    /* Neutral accent = subtle grey hover surfaces (ghost buttons, dropdowns,
+       accordion hover). NOT the orange; keeps hovers calm. */
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
 
-    --pink: 330 85% 60%;
+    /* The one Cushion brand accent: warm coral/orange, used sparingly. */
+    --brand: 24.6 95% 53.1%; /* orange-500 #F97316 */
+    --brand-foreground: 0 0% 100%;
 
-    /* Supporting brand hues (charts, badges). */
-    --sage: 105 11% 64%;
-    --mint: 162 45% 81%;
-    --lavender: 254 100% 86%;
-
-    --success: 158 30% 42%;
-    --warning: 30 53% 54%;
+    /* Restrained data-viz support hues. */
+    --success: 142 45% 40%; /* muted green */
+    --warning: 38 92% 45%; /* muted amber, sparingly */
+    --pink: 330 60% 55%;
+    --sage: 145 20% 55%;
+    --mint: 160 30% 72%;
+    --lavender: 250 35% 70%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 34 26% 88%; /* soft warm tan, lighter for cleaner separation */
-    --input: 34 26% 86%;
-    --ring: 17 52% 48%;
+    --border: 240 5.9% 90%; /* zinc-200 #E4E4E7 */
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
 
-    --radius: 0.75rem;
+    --radius: 0.625rem; /* 10px base */
 
-    /* Warm, light-theme elevation scale (tinted with the plum-ink foreground
-       hue rather than pure black, so shadows read soft on cream surfaces). */
-    --shadow-color: 266 29% 9%;
+    /* Borders over shadows: keep elevation whisper-quiet. */
+    --shadow-color: 240 6% 10%;
     --shadow-xs: 0 1px 2px 0 hsl(var(--shadow-color) / 0.04);
-    --shadow-sm: 0 1px 2px 0 hsl(var(--shadow-color) / 0.05),
-      0 1px 3px -1px hsl(var(--shadow-color) / 0.05);
-    --shadow-soft: 0 2px 4px -2px hsl(var(--shadow-color) / 0.06),
-      0 4px 12px -4px hsl(var(--shadow-color) / 0.08);
-    --shadow-elevated: 0 8px 24px -12px hsl(var(--shadow-color) / 0.16),
-      0 2px 6px -2px hsl(var(--shadow-color) / 0.06);
+    --shadow-sm: 0 1px 2px 0 hsl(var(--shadow-color) / 0.05);
+    --shadow-soft: 0 1px 2px 0 hsl(var(--shadow-color) / 0.04),
+      0 1px 3px 0 hsl(var(--shadow-color) / 0.06);
+    --shadow-elevated: 0 2px 8px -2px hsl(var(--shadow-color) / 0.08),
+      0 1px 2px 0 hsl(var(--shadow-color) / 0.04);
 
-    /* Plum-ink sidebar palette (fixed, independent of brand accent). */
-    --sidebar: 266 29% 9%; /* #17111F */
-    --sidebar-foreground: 311 12% 75%;
-    --sidebar-muted: 278 9% 53%;
-    --sidebar-accent: 275 39% 15%; /* #2A1837 */
-    --sidebar-border: 269 24% 20%;
+    /* Near-black surface for the footer and app sidebar. */
+    --sidebar: 240 10% 3.9%; /* zinc-950 */
+    --sidebar-foreground: 240 5% 65%; /* zinc-400 */
+    --sidebar-muted: 240 4% 46%;
+    --sidebar-accent: 240 6% 12%;
+    --sidebar-border: 240 5% 18%;
   }
 }
 
@@ -79,6 +84,7 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
   }
 
   ::selection {
@@ -89,7 +95,7 @@
 @layer utilities {
   .bg-grid {
     background-image: radial-gradient(
-      hsl(var(--foreground) / 0.06) 1px,
+      hsl(var(--foreground) / 0.05) 1px,
       transparent 1px
     );
     background-size: 22px 22px;
