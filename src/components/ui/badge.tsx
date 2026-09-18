@@ -15,7 +15,7 @@ const badgeVariants = cva(
         // Tonal (soft) variants — a subtle tinted fill with matching text, the
         // modern default for status pills. All routed through brand tokens so
         // they stay consistent and theme-aware instead of hardcoded colors.
-        brand: "border-transparent bg-primary/10 text-primary",
+        brand: "border-transparent bg-brand/10 text-brand",
         success: "border-transparent bg-success/10 text-success",
         warning: "border-transparent bg-warning/10 text-warning",
         danger: "border-transparent bg-destructive/10 text-destructive",

@@ -30,6 +30,10 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         pink: "hsl(var(--pink))",
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          foreground: "hsl(var(--brand-foreground))",
+        },
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
         sage: "hsl(var(--sage))",
