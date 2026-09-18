@@ -15,7 +15,14 @@ export const updateSession = async (request: NextRequest) => {
     },
   });
 
-  const supabase = createServerClient(supabaseUrl!, supabaseKey!, {
+  // Supabase isn't configured yet (no env vars). Skip session refresh and let
+  // the request through untouched — otherwise createServerClient throws and,
+  // since this middleware runs on every route, every page 500s.
+  if (!supabaseUrl || !supabaseKey) {
+    return supabaseResponse;
+  }
+
+  const supabase = createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();
