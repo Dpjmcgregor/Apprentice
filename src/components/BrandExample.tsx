@@ -89,7 +89,7 @@ export function BrandExample() {
                 2,999
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
-                are potential lifelong customers
+                are potential advocates, customers and future hires
               </p>
             </div>
           </div>
