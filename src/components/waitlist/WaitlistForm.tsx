@@ -34,13 +34,44 @@ export function WaitlistForm({
   const [form, setForm] = useState({ email: "", name: "", company: "" });
   const [error, setError] = useState("");
   const [joined, setJoined] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
     if (!EMAIL_RE.test(form.email.trim())) {
       setError("Please enter a valid work email.");
       return;
     }
+
+    setSubmitting(true);
+    setError("");
+
+    // Persist to Supabase via the route handler. The server degrades to
+    // { ok: true, persisted: false } when Supabase isn't configured, so a
+    // preview without env vars still behaves like the local demo.
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, source }),
+      });
+      const data = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+      };
+      if (!res.ok || !data.ok) {
+        setError(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+    } catch {
+      setError("Couldn't reach the server. Please try again.");
+      return;
+    } finally {
+      setSubmitting(false);
+    }
+
+    // Keep a local copy so the live count and the demo workspace stay in sync.
     joinWaitlist({ ...form, source });
     try {
       window.localStorage.setItem(WAITLIST_JOINED_KEY, "1");
@@ -116,8 +147,8 @@ export function WaitlistForm({
         />
       </div>
       {error && <p className="text-sm text-destructive">{error}</p>}
-      <Button type="submit" className="w-full">
-        Join the waitlist
+      <Button type="submit" className="w-full" disabled={submitting}>
+        {submitting ? "Joining…" : "Join the waitlist"}
         <ArrowRight className="h-4 w-4" />
       </Button>
       <p className="text-center text-[11px] text-muted-foreground">
