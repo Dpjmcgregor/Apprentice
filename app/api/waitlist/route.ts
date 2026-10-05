@@ -56,7 +56,7 @@ export async function POST(request: Request) {
       name: clean(name),
       company: clean(company),
       role: clean(role),
-      consent: consent === true,
+      marketing_consent: consent === true,
       source: clean(source) ?? "unknown",
     });
 
