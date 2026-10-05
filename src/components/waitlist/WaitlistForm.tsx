@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { toast } from "sonner";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { useStore } from "@/lib/store";
@@ -32,6 +32,10 @@ export function WaitlistForm({
   autoFocus?: boolean;
 }) {
   const { joinWaitlist } = useStore();
+  // Unique per instance: this form renders on the page and in the modal prompt
+  // at the same time, so hardcoded ids would collide and a label (notably the
+  // consent checkbox) would target the wrong instance's control.
+  const fid = useId();
   const [form, setForm] = useState({
     email: "",
     name: "",
@@ -145,22 +149,22 @@ export function WaitlistForm({
     <form onSubmit={submit} className="space-y-3">
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <Label htmlFor="wl-name" className="text-xs">
+          <Label htmlFor={`${fid}-name`} className="text-xs">
             Name <span className="text-muted-foreground">(optional)</span>
           </Label>
           <Input
-            id="wl-name"
+            id={`${fid}-name`}
             placeholder="Jordan Lee"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="wl-company" className="text-xs">
+          <Label htmlFor={`${fid}-company`} className="text-xs">
             Company <span className="text-muted-foreground">(optional)</span>
           </Label>
           <Input
-            id="wl-company"
+            id={`${fid}-company`}
             placeholder="Nova & Co."
             value={form.company}
             onChange={(e) => setForm({ ...form, company: e.target.value })}
@@ -168,22 +172,22 @@ export function WaitlistForm({
         </div>
       </div>
       <div className="space-y-1.5">
-        <Label htmlFor="wl-role" className="text-xs">
+        <Label htmlFor={`${fid}-role`} className="text-xs">
           Role <span className="text-muted-foreground">(optional)</span>
         </Label>
         <Input
-          id="wl-role"
+          id={`${fid}-role`}
           placeholder="Head of Talent"
           value={form.role}
           onChange={(e) => setForm({ ...form, role: e.target.value })}
         />
       </div>
       <div className="space-y-1.5">
-        <Label htmlFor="wl-email" className="text-xs">
+        <Label htmlFor={`${fid}-email`} className="text-xs">
           Work email
         </Label>
         <Input
-          id="wl-email"
+          id={`${fid}-email`}
           type="email"
           autoFocus={autoFocus}
           placeholder="you@yourbrand.com"
@@ -196,13 +200,13 @@ export function WaitlistForm({
       </div>
       <div className="flex items-start gap-2.5 pt-0.5">
         <Checkbox
-          id="wl-consent"
+          id={`${fid}-consent`}
           checked={consent}
           onCheckedChange={(checked) => setConsent(checked === true)}
           className="mt-0.5"
         />
         <Label
-          htmlFor="wl-consent"
+          htmlFor={`${fid}-consent`}
           className="text-xs font-normal leading-snug text-muted-foreground"
         >
           Keep me updated about Cushion
