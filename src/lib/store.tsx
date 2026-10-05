@@ -94,6 +94,8 @@ interface StoreContextValue {
     email: string;
     name?: string;
     company?: string;
+    role?: string;
+    consent?: boolean;
     source: string;
   }) => WaitlistEntry;
   // demo controls
@@ -378,6 +380,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         email: input.email.trim(),
         name: input.name?.trim() || undefined,
         company: input.company?.trim() || undefined,
+        role: input.role?.trim() || undefined,
+        consent: input.consent ?? undefined,
         createdAt: nowIso(),
         source: input.source,
       };
