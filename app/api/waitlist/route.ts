@@ -23,10 +23,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const { email, name, company, source } = (body ?? {}) as {
+  const { email, name, company, role, consent, source } = (body ?? {}) as {
     email?: unknown;
     name?: unknown;
     company?: unknown;
+    role?: unknown;
+    consent?: unknown;
     source?: unknown;
   };
 
@@ -53,11 +55,19 @@ export async function POST(request: Request) {
       email: cleanEmail,
       name: clean(name),
       company: clean(company),
+      role: clean(role),
+      consent: consent === true,
       source: clean(source) ?? "unknown",
     });
 
-    // 23505 = unique_violation: they're already on the list. Treat as success.
-    if (error && error.code !== "23505") {
+    // 23505 = unique_violation: this email is already on the list. Report it so
+    // the form can show "You're already on the list." rather than a fresh
+    // thank-you.
+    if (error?.code === "23505") {
+      return NextResponse.json({ ok: true, persisted: true, duplicate: true });
+    }
+
+    if (error) {
       console.error("[waitlist] insert failed:", error.message);
       return NextResponse.json(
         { ok: false, error: "Something went wrong. Please try again." },
