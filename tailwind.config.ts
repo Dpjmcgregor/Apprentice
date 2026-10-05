@@ -19,9 +19,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["Anton", "Inter", "sans-serif"],
-        serif: ["'Playfair Display'", "Georgia", "serif"],
+        sans: ["'DM Sans'", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Manrope", "'DM Sans'", "sans-serif"],
+        serif: ["Manrope", "'DM Sans'", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -33,6 +33,10 @@ export default {
         brand: {
           DEFAULT: "hsl(var(--brand))",
           foreground: "hsl(var(--brand-foreground))",
+        },
+        coral: {
+          DEFAULT: "hsl(var(--coral))",
+          foreground: "hsl(var(--coral-foreground))",
         },
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",

@@ -55,7 +55,7 @@ export function BrandExample() {
           <p className="mt-6 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
             Real world example
           </p>
-          <h3 className="mt-3 font-serif text-4xl font-bold leading-tight text-foreground sm:text-5xl">
+          <h3 className="mt-3 font-display text-4xl font-bold leading-tight text-foreground sm:text-5xl">
             Applications that go further.
           </h3>
           <p className="mt-5 max-w-md text-muted-foreground">
@@ -143,7 +143,7 @@ export function BrandExample() {
                 <span className="text-muted-foreground">&times;</span>
                 <span>Cushion</span>
               </div>
-              <h4 className="mt-6 text-center font-serif text-2xl font-bold text-foreground">
+              <h4 className="mt-6 text-center font-display text-2xl font-bold text-foreground">
                 Get outside. On us.
               </h4>
               <p className="mt-2 text-center text-sm font-medium text-muted-foreground">

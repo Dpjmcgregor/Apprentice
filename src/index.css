@@ -4,58 +4,65 @@
 
 @layer base {
   :root {
-    /* Cushion design system: neutral-first (Zinc) with a single restrained
-       orange brand accent. Colours are HSL channel triplets, consumed via
-       hsl(var(--token)) in tailwind.config so opacity modifiers keep working.
-       Aim: ~85-90% neutral, orange used sparingly for brand moments. */
+    /* Cushion brand system (see brand book). Ink and Paper/Cream do most of
+       the work; Mint is the signature; Coral is a sparing accent for energy.
+       Colours are HSL channel triplets, consumed via hsl(var(--token)) so
+       opacity modifiers keep working. Calm, spacious, confident. */
 
-    --background: 0 0% 100%; /* #FFFFFF */
-    --foreground: 240 10% 3.9%; /* zinc-950 #09090B */
+    --background: 40 60% 99%; /* Paper #FFFDF9 */
+    --foreground: 171 47% 12%; /* Ink #102C28 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card: 0 0% 100%; /* White, clean content surfaces */
+    --card-foreground: 171 47% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 171 47% 12%;
 
-    /* Primary is near-black (shadcn zinc), for solid buttons and emphasis. */
-    --primary: 240 5.9% 10%; /* zinc-900 #18181B */
-    --primary-foreground: 0 0% 98%; /* #FAFAFA */
+    /* Primary is Ink: solid buttons, emphasis, brand authority. */
+    --primary: 171 47% 12%; /* Ink #102C28 */
+    --primary-foreground: 40 60% 99%; /* Paper */
 
-    --secondary: 240 4.8% 95.9%; /* zinc-100 #F4F4F5 */
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 155 29% 93%; /* Soft #E9F3EF, secondary surfaces + cards */
+    --secondary-foreground: 171 47% 12%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%; /* zinc-500 #71717A */
+    --muted: 39 41% 95%; /* Cream #F7F3EC, warm editorial band surfaces */
+    --muted-foreground: 165 8% 41%; /* Muted #61716D, secondary text */
 
-    /* Neutral accent = subtle grey hover surfaces (ghost buttons, dropdowns,
-       accordion hover). NOT the orange; keeps hovers calm. */
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    /* Neutral accent = calm hover surfaces (ghost buttons, dropdowns,
+       accordion hover). Soft mint tint, never the coral. */
+    --accent: 155 29% 93%; /* Soft */
+    --accent-foreground: 171 47% 12%;
 
-    /* The one Cushion brand accent: warm coral/orange, used sparingly. */
-    --brand: 24.6 95% 53.1%; /* orange-500 #F97316 */
+    /* Mint: the signature. Dot, highlights, positive moments. */
+    --mint: 163 52% 71%; /* Mint #8FDCC6 */
+    --mint-foreground: 171 47% 12%;
+
+    /* Coral: accent for emphasis and moments that need energy. Used sparingly,
+       never as a second primary. --brand routes to Coral so existing
+       bg-brand / text-brand emphasis reads as the energetic accent. */
+    --coral: 7 100% 68%; /* Coral #FF725E */
+    --coral-foreground: 0 0% 100%;
+    --brand: 7 100% 68%;
     --brand-foreground: 0 0% 100%;
 
-    /* Restrained data-viz support hues. */
-    --success: 142 45% 40%; /* muted green */
-    --warning: 38 92% 45%; /* muted amber, sparingly */
-    --pink: 330 60% 55%;
-    --sage: 145 20% 55%;
-    --mint: 160 30% 72%;
-    --lavender: 250 35% 70%;
+    /* Restrained data-viz support hues, kept in the brand family. */
+    --success: 160 45% 40%; /* calm green */
+    --warning: 38 85% 48%; /* muted amber, sparingly */
+    --pink: 345 60% 62%;
+    --sage: 160 24% 52%;
+    --lavender: 250 32% 68%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%; /* zinc-200 #E4E4E7 */
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --border: 154 13% 86%; /* Line #D7E0DC, borders + dividers */
+    --input: 154 13% 86%;
+    --ring: 171 47% 12%; /* Ink */
 
-    --radius: 0.625rem; /* 10px base */
+    --radius: 0.75rem; /* 12px base: prefer rounded cards */
 
     /* Borders over shadows: keep elevation whisper-quiet. */
-    --shadow-color: 240 6% 10%;
+    --shadow-color: 171 30% 12%;
     --shadow-xs: 0 1px 2px 0 hsl(var(--shadow-color) / 0.04);
     --shadow-sm: 0 1px 2px 0 hsl(var(--shadow-color) / 0.05);
     --shadow-soft: 0 1px 2px 0 hsl(var(--shadow-color) / 0.04),
@@ -63,12 +70,12 @@
     --shadow-elevated: 0 2px 8px -2px hsl(var(--shadow-color) / 0.08),
       0 1px 2px 0 hsl(var(--shadow-color) / 0.04);
 
-    /* Near-black surface for the footer and app sidebar. */
-    --sidebar: 240 10% 3.9%; /* zinc-950 */
-    --sidebar-foreground: 240 5% 65%; /* zinc-400 */
-    --sidebar-muted: 240 4% 46%;
-    --sidebar-accent: 240 6% 12%;
-    --sidebar-border: 240 5% 18%;
+    /* Ink surface for the footer and app sidebar: dark backgrounds, authority. */
+    --sidebar: 171 47% 12%; /* Ink */
+    --sidebar-foreground: 155 22% 80%; /* soft mint-grey */
+    --sidebar-muted: 160 12% 58%;
+    --sidebar-accent: 171 38% 18%;
+    --sidebar-border: 171 28% 22%;
   }
 }
 
@@ -83,8 +90,17 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     text-rendering: optimizeLegibility;
+  }
+
+  /* Manrope for display, headings and navigation; DM Sans for body (font-sans).
+     High-value numbers opt in with font-display. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    letter-spacing: -0.01em;
   }
 
   ::selection {

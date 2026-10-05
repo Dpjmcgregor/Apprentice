@@ -1,5 +1,4 @@
 import {
-  Sparkles,
   ArrowRight,
   Wand2,
   Gift,
@@ -179,14 +178,12 @@ export default function HomePage() {
       {/* Nav */}
       <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <Sparkles className="h-4 w-4" />
-            </span>
-            <span className="text-[15px] font-semibold tracking-tight text-foreground">
+          <a href="#" className="flex items-baseline gap-1">
+            <span className="font-display text-lg font-extrabold tracking-tight text-foreground">
               Cushion
             </span>
-          </div>
+            <span className="h-1.5 w-1.5 rounded-full bg-mint" />
+          </a>
           <nav className="hidden items-center gap-7 md:flex">
             <a
               href="#how"
@@ -223,7 +220,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 pb-16 pt-20 sm:px-6 lg:pb-24 lg:pt-28">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+              <span className="h-1.5 w-1.5 rounded-full bg-mint" />
               Applicant advocacy for consumer brands
             </span>
             <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-6xl sm:leading-[1.05]">
@@ -261,7 +258,7 @@ export default function HomePage() {
       {/* Statement band */}
       <section className="border-b border-border bg-muted/40">
         <div className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6">
-          <p className="text-2xl font-bold tracking-tight text-foreground sm:text-4xl sm:leading-tight">
+          <p className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-4xl sm:leading-tight">
             Those who love your business want to work for you. The majority never
             will.
           </p>
@@ -293,7 +290,7 @@ export default function HomePage() {
               StandOut CV UK survey
             </a>
           </p>
-          <p className="mt-10 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <p className="mt-10 font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             Be the brand that buys them a{" "}
             <span className="text-brand">coffee.</span>
           </p>
@@ -528,7 +525,7 @@ export default function HomePage() {
                   <Badge variant="brand">Most popular</Badge>
                 )}
               </div>
-              <p className="mt-4 text-3xl font-bold text-foreground">{p.band}</p>
+              <p className="mt-4 font-display text-3xl font-bold text-foreground">{p.band}</p>
               <p className="mt-1 text-sm text-muted-foreground">{p.cap}</p>
               <ul className="mt-6 flex-1 space-y-3">
                 {p.features.map((feat) => (
@@ -561,7 +558,7 @@ export default function HomePage() {
               variant="outline"
               className="gap-2 bg-card px-3 py-1 text-muted-foreground"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              <span className="h-1.5 w-1.5 rounded-full bg-mint" />
               Early access
             </Badge>
             <h2 className="mt-4 text-3xl font-bold text-foreground">
@@ -602,13 +599,11 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="flex flex-col justify-between gap-10 md:flex-row">
             <div className="max-w-xs">
-              <div className="flex items-center gap-2.5">
-                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-background text-foreground">
-                  <Sparkles className="h-4 w-4" />
-                </span>
-                <span className="text-[15px] font-semibold tracking-tight text-background">
+              <div className="flex items-baseline gap-1">
+                <span className="font-display text-lg font-extrabold tracking-tight text-background">
                   Cushion
                 </span>
+                <span className="h-1.5 w-1.5 rounded-full bg-mint" />
               </div>
               <p className="mt-4 text-sm text-sidebar-foreground">
                 Applicant advocacy for consumer brands. Reward the people who

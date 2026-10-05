@@ -59,7 +59,7 @@ export function HeroProduct() {
       {/* Top bar */}
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-brand" />
+          <span className="h-2 w-2 rounded-full bg-mint" />
           <span className="text-sm font-semibold text-foreground">Cushion</span>
         </div>
         <div className="hidden items-center gap-5 sm:flex">
