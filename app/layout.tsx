@@ -4,7 +4,7 @@ import { Providers } from "./providers";
 
 const TITLE = "Cushion | Your applicants are your best advocates";
 const DESCRIPTION =
-  "Cushion gives every applicant access to exclusive rewards from the moment they apply, whether they get the job or not. Applicant advocacy for consumer brands, built around UK GDPR and PECR.";
+  "Cushion gives every applicant access to exclusive rewards from the moment they apply, whether they get the job or not. Applicant advocacy for every business, built around UK GDPR and PECR.";
 const OG_DESCRIPTION =
   "The people who apply to work for you are your best advocates. Cushion gives every applicant access to exclusive rewards from the moment they apply, with consent handled properly.";
 
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description:
-      "Every applicant gets access to exclusive rewards from the moment they apply. Whether they get the job or not. Applicant advocacy for consumer brands.",
+      "Every applicant gets access to exclusive rewards from the moment they apply. Whether they get the job or not. Applicant advocacy for every business.",
   },
 };
 
