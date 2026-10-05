@@ -32,7 +32,10 @@ export async function POST(request: Request) {
     source?: unknown;
   };
 
-  const cleanEmail = typeof email === "string" ? email.trim() : "";
+  // Normalise to lower-case so the unique-email index dedupes case variants
+  // (e.g. "You@Brand.com" and "you@brand.com" are the same signup).
+  const cleanEmail =
+    typeof email === "string" ? email.trim().toLowerCase() : "";
   if (!EMAIL_RE.test(cleanEmail)) {
     return NextResponse.json(
       { ok: false, error: "Please enter a valid work email." },
