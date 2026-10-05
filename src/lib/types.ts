@@ -131,6 +131,8 @@ export interface WaitlistEntry {
   email: string;
   name?: string;
   company?: string;
+  role?: string;
+  consent?: boolean; // opted in to "Keep me updated about Cushion"
   createdAt: string; // ISO
   source: string; // where they joined from, e.g. "landing-hero", "prompt"
 }
